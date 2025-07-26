@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Box, Container } from "@mui/material";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { HeroSection } from "@/components/ui/HeroSection";
 import { SearchSection } from "@/components/ui/SearchSection";
@@ -14,6 +15,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleGenreClick = (genreName: string) => {
     const newSelectedGenre = selectedGenre === genreName ? null : genreName;
@@ -28,8 +30,7 @@ export default function Home() {
   };
 
   const handleCardClick = (anime: Anime) => {
-    console.log("Clicked:", anime.title.english);
-    // TODO: Navigate to anime details page
+    router.push(`/anime/${anime.id}`);
   };
 
   const handleAddToList = (anime: Anime) => {
@@ -40,16 +41,6 @@ export default function Home() {
   const handleAddToComparison = (anime: Anime) => {
     console.log("Added to comparison:", anime.title.english);
     // TODO: Implement add to comparison functionality
-  };
-
-  const handleExploreClick = () => {
-    console.log("Explore anime clicked");
-    // TODO: Navigate to explore page
-  };
-
-  const handleViewListClick = () => {
-    console.log("View my list clicked");
-    // TODO: Navigate to my list page
   };
 
   return (

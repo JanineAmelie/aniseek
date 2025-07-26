@@ -53,6 +53,16 @@ export const ANIME_FRAGMENT = gql`
   }
 `;
 
+// Get single anime details by ID
+export const GET_ANIME_DETAILS = gql`
+  ${ANIME_FRAGMENT}
+  query GetAnimeDetails($id: Int!) {
+    Media(id: $id, type: ANIME) {
+      ...AnimeInfo
+    }
+  }
+`;
+
 // Search for anime with pagination
 export const SEARCH_ANIME = gql`
   ${ANIME_FRAGMENT}
