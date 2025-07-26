@@ -7,8 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "codegen": "graphql-codegen",
-    "codegen:watch": "graphql-codegen --watch"
+    "codegen:watch": "graphql-codegen --watch",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "fix": "npm run lint:fix && npm run format"
   },
   "dependencies": {
     "@apollo/client": "3.13.8",
@@ -30,11 +34,14 @@
     "@graphql-codegen/typescript-operations": "^4.6.1",
     "@graphql-codegen/typescript-react-apollo": "^4.3.3",
     "@graphql-typed-document-node/core": "^3.2.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/node": "20",
     "@types/react": "19",
     "@types/react-dom": "19",
     "eslint": "9",
     "eslint-config-next": "15.4.4",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "prettier": "^3.6.2",
     "typescript": "5"
   }
 }

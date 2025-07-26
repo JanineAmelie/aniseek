@@ -3,15 +3,7 @@ import { Card, CardContent, Typography } from "@mui/material";
 import styled from "styled-components";
 import { Anime } from "@/types/anime";
 import { getAnimeTitle } from "@/utils/anime";
-import {
-  Score,
-  Actions,
-  Cover,
-  Info,
-  Description,
-  UserRating,
-  Genres,
-} from "./index";
+import { Cover, Description, Genres, Info, Score, UserRating } from "./index";
 
 type AnimeCardProps = {
   anime: Anime;
@@ -30,14 +22,7 @@ type AnimeCardProps = {
 
 export function AnimeCard({
   anime,
-  onAddToList,
-  onRemoveFromList,
-  onAddToComparison,
-  onRemoveFromComparison,
   onCardClick,
-  isInMyList = false,
-  isInComparison = false,
-  canAddToComparison = true,
   showUserRating = false,
   userRating,
   onRatingChange,
@@ -68,10 +53,18 @@ export function AnimeCard({
         onRemoveFromComparison={onRemoveFromComparison}
       /> */}
 
-      <Cover coverImage={anime.coverImage} title={animeTitle} />
+      <Cover
+        coverImage={anime.coverImage}
+        title={animeTitle}
+      />
 
       <CardContentContainer>
-        <Typography variant="h6" component="h3" gutterBottom noWrap>
+        <Typography
+          variant="h6"
+          component="h3"
+          gutterBottom
+          noWrap
+        >
           {animeTitle}
         </Typography>
 
