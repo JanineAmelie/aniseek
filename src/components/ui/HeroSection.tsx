@@ -42,25 +42,33 @@ export function HeroSection() {
 const HeroTitle = styled.h1`
   font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 800;
-  background: linear-gradient(45deg, #ffffff, #f0f9ff, #e0f2fe);
+  background: linear-gradient(
+    45deg,
+    ${(props) => props.theme.palette.cuteColors.cream},
+    ${(props) => props.theme.palette.cuteColors.pinkLight},
+    ${(props) => props.theme.palette.cuteColors.purpleLight}
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 1rem;
   margin: 0;
   text-align: center;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  text-shadow: 0 4px 8px ${(props) => props.theme.palette.cuteColors.softShadow};
+  filter: drop-shadow(
+    0 2px 4px ${(props) => props.theme.palette.cuteColors.softShadow}
+  );
 `;
 
 const HeroSubtitle = styled.h2`
   font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-  color: #f8fafc;
+  color: ${(props) => props.theme.palette.cuteColors.cream};
   margin-bottom: 2rem;
   font-weight: 400;
   margin-top: 1rem;
   text-align: center;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 2px 4px
+    ${(props) => props.theme.palette.cuteColors.blackOverlay};
   opacity: 0.95;
 `;
 
@@ -92,9 +100,9 @@ const HeroOverlay = styled(Box)`
   align-items: center;
   background: linear-gradient(
     135deg,
-    rgba(0, 0, 0, 0.6) 0%,
+    ${(props) => props.theme.palette.cuteColors.blackOverlay} 0%,
     rgba(0, 0, 0, 0.4) 50%,
-    rgba(0, 0, 0, 0.6) 100%
+    ${(props) => props.theme.palette.cuteColors.blackOverlay} 100%
   );
 
   &::before {
@@ -106,9 +114,9 @@ const HeroOverlay = styled(Box)`
     bottom: 0;
     background: linear-gradient(
       135deg,
-      rgba(99, 102, 241, 0.2) 0%,
-      rgba(236, 72, 153, 0.2) 50%,
-      rgba(59, 130, 246, 0.2) 100%
+      ${(props) => props.theme.palette.cuteColors.pinkOverlay} 0%,
+      rgba(218, 112, 214, 0.2) 50%,
+      rgba(255, 179, 230, 0.2) 100%
     );
     z-index: -1;
   }

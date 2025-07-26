@@ -1,10 +1,10 @@
 .page {
-  --gray-rgb: 0, 0, 0;
-  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
-  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
+  --gray-rgb: 148, 163, 184; /* Cute gray */
+  --gray-alpha-200: rgba(255, 105, 180, 0.08); /* Pink overlay */
+  --gray-alpha-100: rgba(255, 105, 180, 0.05); /* Light pink overlay */
 
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
+  --button-primary-hover: #ff69b4; /* Hot pink hover */
+  --button-secondary-hover: #ffc0cb; /* Soft pink hover */
 
   display: grid;
   grid-template-rows: 20px 1fr 20px;
@@ -18,12 +18,12 @@
 
 @media (prefers-color-scheme: dark) {
   .page {
-    --gray-rgb: 255, 255, 255;
-    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
-    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
+    --gray-rgb: 255, 179, 230; /* Pink light for dark mode */
+    --gray-alpha-200: rgba(255, 179, 230, 0.145);
+    --gray-alpha-100: rgba(255, 179, 230, 0.06);
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
+    --button-primary-hover: #ffb3e6; /* Light pink hover */
+    --button-secondary-hover: #f8d7da; /* Pastel pink hover */
   }
 }
 
@@ -67,10 +67,7 @@
   height: 48px;
   padding: 0 20px;
   border: 1px solid transparent;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
   cursor: pointer;
   display: flex;
   align-items: center;

@@ -237,7 +237,7 @@ const ScoreOverlay = styled(Box)`
   position: absolute;
   top: 8px;
   left: 8px;
-  background: rgba(0, 0, 0, 0.8);
+  background: ${(props) => props.theme.palette.cuteColors.blackOverlay};
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
@@ -287,7 +287,7 @@ const ActionButton = styled(IconButton)<{
   $isActive?: boolean;
   $variant?: "primary" | "secondary";
 }>`
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: ${(props) => props.theme.palette.cuteColors.blackOverlay};
   color: ${({ $isActive, $variant, theme }) => {
     if ($isActive) {
       return $variant === "secondary"

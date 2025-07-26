@@ -19,7 +19,11 @@ export function Header() {
 
 const Logo = styled(Typography)`
   font-weight: 700;
-  background: linear-gradient(45deg, #6366f1, #ec4899);
+  background: linear-gradient(
+    45deg,
+    ${(props) => props.theme.palette.cuteColors.pinkPrimary},
+    ${(props) => props.theme.palette.cuteColors.purplePrimary}
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -28,6 +32,6 @@ const Logo = styled(Typography)`
 
 const StyledAppBar = styled(AppBar)`
   backdrop-filter: blur(8px);
-  background: rgba(30, 41, 59, 0.95);
-  border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+  background: ${(props) => props.theme.palette.cuteColors.whiteOverlay};
+  border-bottom: 1px solid ${(props) => props.theme.palette.cuteColors.pinkSoft};
 `;

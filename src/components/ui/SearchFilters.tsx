@@ -368,11 +368,11 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
 
 const SearchContainer = styled(Box)`
   padding: 16px;
-  background: rgba(30, 41, 59, 0.95);
+  background: ${(props) => props.theme.palette.cuteColors.whiteOverlay};
   border-radius: 12px;
   margin-bottom: 24px;
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(100, 116, 139, 0.2);
+  border: 1px solid ${(props) => props.theme.palette.cuteColors.pinkSoft};
 `;
 
 const FilterRow = styled(Box)`

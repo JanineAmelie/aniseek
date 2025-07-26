@@ -65,9 +65,9 @@ export function SearchSection({
 const SearchContainer = styled(Paper)`
   padding: 24px;
   border-radius: 20px;
-  background: rgba(30, 41, 59, 0.8);
+  background: ${(props) => props.theme.palette.cuteColors.whiteOverlay};
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(100, 116, 139, 0.2);
+  border: 1px solid ${(props) => props.theme.palette.cuteColors.pinkSoft};
   margin: 32px 0;
 `;
 
@@ -84,11 +84,15 @@ const TitleIcon = styled(SearchIcon)`
 const StyledTextField = styled(TextField)`
   & .MuiOutlinedInput-root {
     border-radius: 12px;
-    background-color: rgba(51, 65, 85, 0.5);
+    background-color: ${(props) => props.theme.palette.cuteColors.cream};
   }
 `;
 
 const SearchButton = styled(Button)`
-  background: linear-gradient(45deg, #6366f1, #8b5cf6);
+  background: linear-gradient(
+    45deg,
+    ${(props) => props.theme.palette.cuteColors.pinkPrimary},
+    ${(props) => props.theme.palette.cuteColors.purplePrimary}
+  );
   border-radius: 8px;
 `;

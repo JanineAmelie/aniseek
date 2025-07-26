@@ -91,13 +91,13 @@ const GenreButton = styled(Button)<{
   background: ${(props) => {
     switch (props.$variant) {
       case "primary":
-        return "linear-gradient(135deg, #6366f1, #8b5cf6)";
+        return `linear-gradient(135deg, ${props.theme.palette.cuteColors.pinkPrimary}, ${props.theme.palette.cuteColors.purplePrimary})`;
       case "secondary":
-        return "linear-gradient(135deg, #ec4899, #f43f5e)";
+        return `linear-gradient(135deg, ${props.theme.palette.cuteColors.peach}, ${props.theme.palette.cuteColors.pinkLight})`;
       case "accent":
-        return "linear-gradient(135deg, #06b6d4, #0ea5e9)";
+        return `linear-gradient(135deg, ${props.theme.palette.cuteColors.skyBlue}, ${props.theme.palette.cuteColors.lavender})`;
       default:
-        return "linear-gradient(135deg, #64748b, #475569)";
+        return `linear-gradient(135deg, ${props.theme.palette.cuteColors.grayMedium}, ${props.theme.palette.cuteColors.grayDark})`;
     }
   }};
   color: white;
@@ -107,7 +107,7 @@ const GenreButton = styled(Button)<{
   font-weight: 600;
   font-size: 1rem;
   text-transform: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px ${(props) => props.theme.palette.cuteColors.softShadow};
   transition: all 0.3s ease;
   width: 100%;
   opacity: ${({ $selectedGenre, $genreName }) =>
@@ -115,7 +115,8 @@ const GenreButton = styled(Button)<{
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 30px
+      ${(props) => props.theme.palette.cuteColors.pinkShadow};
   }
 `;
 

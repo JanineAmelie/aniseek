@@ -1,4 +1,5 @@
 import { Anime, AnimeTitle, AnimeStatus } from "@/types/anime";
+import { Theme } from "@mui/material/styles";
 
 /**
  * Get the best available title for an anime
@@ -109,29 +110,31 @@ export const formatDuration = (duration?: number): string => {
 /**
  * Calculate anime score color based on rating
  */
-export const getScoreColor = (score?: number): string => {
-  if (!score) return "#666";
+export const getScoreColor = (score?: number, theme?: Theme): string => {
+  if (!theme || !score) return "#9ca3af"; // fallback gray
 
-  if (score >= 80) return "#4CAF50"; // Green for excellent
-  if (score >= 70) return "#8BC34A"; // Light green for good
-  if (score >= 60) return "#FFC107"; // Yellow for average
-  if (score >= 50) return "#FF9800"; // Orange for below average
-  return "#F44336"; // Red for poor
+  if (score >= 80) return theme.palette.cuteColors.mintGreen; // Mint green for excellent
+  if (score >= 70) return theme.palette.cuteColors.peach; // Peach for good
+  if (score >= 60) return theme.palette.cuteColors.lavender; // Lavender for average
+  if (score >= 50) return theme.palette.cuteColors.pinkLight; // Pink light for below average
+  return theme.palette.cuteColors.pinkPrimary; // Pink primary for poor
 };
 
 /**
  * Get status color for anime status chips
  */
-export const getStatusColor = (status: AnimeStatus): string => {
+export const getStatusColor = (status: AnimeStatus, theme?: Theme): string => {
+  if (!theme) return "#9ca3af"; // fallback gray
+
   const colorMap: Record<AnimeStatus, string> = {
-    [AnimeStatus.FINISHED]: "#4CAF50",
-    [AnimeStatus.RELEASING]: "#2196F3",
-    [AnimeStatus.NOT_YET_RELEASED]: "#FF9800",
-    [AnimeStatus.CANCELLED]: "#F44336",
-    [AnimeStatus.HIATUS]: "#9C27B0",
+    [AnimeStatus.FINISHED]: theme.palette.cuteColors.mintGreen,
+    [AnimeStatus.RELEASING]: theme.palette.cuteColors.skyBlue,
+    [AnimeStatus.NOT_YET_RELEASED]: theme.palette.cuteColors.peach,
+    [AnimeStatus.CANCELLED]: theme.palette.cuteColors.pinkPrimary,
+    [AnimeStatus.HIATUS]: theme.palette.cuteColors.purplePrimary,
   };
 
-  return colorMap[status] || "#666";
+  return colorMap[status] || theme.palette.cuteColors.grayMedium;
 };
 
 /**
