@@ -1,8 +1,8 @@
 import React from "react";
-import { Typography, Box, IconButton, Tooltip } from "@mui/material";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
-import { getAnimeTitle } from "@/utils/anime";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { AnimeTitle } from "@/types/anime";
+import { getAnimeTitle } from "@/utils";
 
 type HeaderProps = {
   title?: {
@@ -35,7 +35,11 @@ export function Header({ title, onBack }: Readonly<HeaderProps>) {
           <ArrowBackIcon />
         </IconButton>
       </Tooltip>
-      <Typography variant="h3" component="h1" gutterBottom>
+      <Typography
+        variant="h3"
+        component="h1"
+        gutterBottom
+      >
         {animeTitle}
       </Typography>
     </Box>

@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
 import styled from "styled-components";
 import { Anime } from "@/types/anime";
-import { getAnimeTitle } from "@/utils/anime";
+import { getAnimeTitle } from "@/utils";
 import { Cover, Description, Genres, Info, Score, UserRating } from "./index";
 
 type AnimeCardProps = {

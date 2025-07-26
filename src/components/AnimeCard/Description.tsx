@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import styled from "styled-components";
-import { truncateDescription } from "@/utils/anime";
+import { truncateDescription } from "@/utils";
 
 type DescriptionProps = {
   description?: string;
@@ -19,7 +19,10 @@ export function Description({
   const truncatedDescription = truncateDescription(description, maxLength);
 
   return (
-    <DescriptionText variant="body2" color="text.secondary">
+    <DescriptionText
+      variant="body2"
+      color="text.secondary"
+    >
       {truncatedDescription}
     </DescriptionText>
   );

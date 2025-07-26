@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
 
 type AnimeData = {
@@ -19,11 +19,11 @@ type InfoGridProps = {
 export function InfoGrid({ anime }: Readonly<InfoGridProps>) {
   const hasAnyInfo = Boolean(
     anime.format ||
-    anime.source ||
-    anime.seasonYear ||
-    anime.duration ||
-    anime.popularity ||
-    anime.favourites
+      anime.source ||
+      anime.seasonYear ||
+      anime.duration ||
+      anime.popularity ||
+      anime.favourites
   );
 
   if (!hasAnyInfo) return null;
@@ -32,7 +32,10 @@ export function InfoGrid({ anime }: Readonly<InfoGridProps>) {
     <InfoGridContainer>
       {anime.format && (
         <InfoItem>
-          <Typography variant="subtitle2" color="text.secondary">
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+          >
             Format
           </Typography>
           <Typography variant="body1">{anime.format}</Typography>
@@ -40,7 +43,10 @@ export function InfoGrid({ anime }: Readonly<InfoGridProps>) {
       )}
       {anime.source && (
         <InfoItem>
-          <Typography variant="subtitle2" color="text.secondary">
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+          >
             Source
           </Typography>
           <Typography variant="body1">{anime.source}</Typography>
@@ -48,7 +54,10 @@ export function InfoGrid({ anime }: Readonly<InfoGridProps>) {
       )}
       {anime.seasonYear && (
         <InfoItem>
-          <Typography variant="subtitle2" color="text.secondary">
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+          >
             Year
           </Typography>
           <Typography variant="body1">
@@ -58,7 +67,10 @@ export function InfoGrid({ anime }: Readonly<InfoGridProps>) {
       )}
       {anime.duration && (
         <InfoItem>
-          <Typography variant="subtitle2" color="text.secondary">
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+          >
             Duration
           </Typography>
           <Typography variant="body1">{anime.duration} min</Typography>
@@ -66,7 +78,10 @@ export function InfoGrid({ anime }: Readonly<InfoGridProps>) {
       )}
       {anime.popularity && (
         <InfoItem>
-          <Typography variant="subtitle2" color="text.secondary">
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+          >
             Popularity
           </Typography>
           <Typography variant="body1">#{anime.popularity}</Typography>
@@ -74,7 +89,10 @@ export function InfoGrid({ anime }: Readonly<InfoGridProps>) {
       )}
       {anime.favourites && (
         <InfoItem>
-          <Typography variant="subtitle2" color="text.secondary">
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+          >
             Favourites
           </Typography>
           <Typography variant="body1">

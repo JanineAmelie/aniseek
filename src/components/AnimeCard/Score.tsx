@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import styled from "styled-components";
-import { formatScore } from "@/utils/anime";
+import { formatScore } from "@/utils";
 
 type ScoreProps = {
   score?: number | null;
@@ -17,7 +17,7 @@ const ScoreOverlay = styled(Box)`
   position: absolute;
   top: 8px;
   left: 8px;
-  background: ${(props) => props.theme.palette.cuteColors.blackOverlay};
+  background: ${props => props.theme.palette.cuteColors.blackOverlay};
   color: white;
   padding: 4px 8px;
   border-radius: 4px;

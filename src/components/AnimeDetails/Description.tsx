@@ -1,7 +1,7 @@
 import React from "react";
-import { Typography, Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
-import { truncateDescription } from "@/utils/anime";
+import { truncateDescription } from "@/utils";
 
 type DescriptionProps = {
   description?: string | null;
@@ -22,7 +22,10 @@ export function Description({
 
   return (
     <Box sx={{ mb: 3 }}>
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        gutterBottom
+      >
         Description
       </Typography>
       <DescriptionText
