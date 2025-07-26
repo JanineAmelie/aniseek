@@ -10,6 +10,45 @@ export const text = {
     title: "Find Your Next Adventure",
     placeholder: "Search anime titles, genres, or keywords...",
     button: "Search",
+    filters: {
+      title: "Filters & Sorting",
+      clearAll: "Clear All",
+      sortBy: "Sort By",
+      status: "Status",
+      format: "Format",
+      year: "Year",
+      sortOptions: {
+        popularityDesc: "Most Popular",
+        scoreDesc: "Highest Rated",
+        titleAsc: "Title A-Z",
+        newestFirst: "Newest First",
+        trending: "Trending",
+      },
+      statusOptions: {
+        all: "All Status",
+        airing: "Currently Airing",
+        completed: "Completed",
+        upcoming: "Upcoming",
+      },
+      formatOptions: {
+        all: "All Formats",
+        tv: "TV Series",
+        movie: "Movie",
+        ova: "OVA",
+        special: "Special",
+      },
+      yearOptions: {
+        all: "All Years",
+      },
+    },
+    results: {
+      noQuery: "Enter a search term to find anime",
+      noResults: "No anime found matching your search",
+      resultsCount: {
+        single: "1 result found",
+        multiple: "{count} results found",
+      },
+    },
   },
   genres: {
     title: "Explore by Genre",
@@ -67,6 +106,11 @@ export const text = {
       title: "Failed to load trending anime",
       message:
         "We couldn't fetch the latest trending anime. Please check your connection and try again.",
+    },
+    searchResults: {
+      title: "Failed to load search results",
+      message:
+        "We couldn't perform your search. Please check your connection and try again.",
     },
   },
 } as const;

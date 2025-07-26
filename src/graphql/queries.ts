@@ -156,7 +156,15 @@ export const GET_ANIME_BY_ID = gql`
 `;
 
 export const SEARCH_ANIME = gql`
-  query SearchAnime($search: String, $page: Int, $perPage: Int) {
+  query SearchAnime(
+    $search: String
+    $page: Int
+    $perPage: Int
+    $sort: [MediaSort]
+    $status: MediaStatus
+    $format: MediaFormat
+    $seasonYear: Int
+  ) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
         total
@@ -165,7 +173,14 @@ export const SEARCH_ANIME = gql`
         hasNextPage
         perPage
       }
-      media(type: ANIME, search: $search) {
+      media(
+        type: ANIME
+        search: $search
+        sort: $sort
+        status: $status
+        format: $format
+        seasonYear: $seasonYear
+      ) {
         id
         title {
           romaji

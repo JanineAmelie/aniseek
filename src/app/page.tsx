@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Bolt as BoltIcon } from "@mui/icons-material";
 import { Box, Container, Typography } from "@mui/material";
@@ -16,6 +17,7 @@ import { useAppNavigation } from "@/hooks/useAppNavigation";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
   const { navigateToAnime } = useAppNavigation();
 
   const { data, loading, error, refetch } = useTrendingAnime(1, 4);
@@ -26,7 +28,9 @@ export default function Home() {
   );
 
   const handleSearch = () => {
-    // TODO: Implement search functionality
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
   };
 
   const handleCardClick = (anime: NonNullable<typeof animeList>[number]) => {

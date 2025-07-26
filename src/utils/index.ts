@@ -12,3 +12,9 @@ export { getStatusColor } from "./getStatusColor";
 export { isCurrentlyAiring } from "./isCurrentlyAiring";
 export { isUpcoming } from "./isUpcoming";
 export { stripHtmlAndTruncate, stripHtmlToText } from "./sanitizeHtml";
+export {
+  filterAnimeResults,
+  sortAnimeResults,
+  getSearchSuggestions,
+  highlightSearchTerms,
+} from "./searchHelpers";
