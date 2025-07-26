@@ -6,12 +6,16 @@ import { Box, Skeleton, Typography } from "@mui/material";
 import styled from "styled-components";
 import { AnimeCard } from "@/components/AnimeCard/AnimeCard";
 import { text } from "@/constants/text";
-import { Anime } from "@/types/anime";
+import { GetTrendingAnimeQuery } from "@/types/anime";
+
+type AnimeFromQuery = NonNullable<
+  NonNullable<GetTrendingAnimeQuery["Page"]>["media"]
+>[number];
 
 type TrendingSectionProps = {
   isLoading: boolean;
-  animeList: Anime[];
-  onCardClick: (anime: Anime) => void;
+  animeList: NonNullable<AnimeFromQuery>[];
+  onCardClick: (anime: NonNullable<AnimeFromQuery>) => void;
 };
 
 export function TrendingSection({
@@ -67,21 +71,23 @@ const TitleIcon = styled(TrendingIcon)`
 `;
 
 const ContentGrid = styled(Box)`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 24px;
-`;
-
-const GridItem = styled(Box)<{ $isLoading?: boolean }>`
-  flex: 1 0 100%;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
-    flex: 1 0 45%;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.values.md}px) {
-    flex: 1 0 22%;
+    grid-template-columns: repeat(4, 1fr);
   }
+`;
+
+const GridItem = styled(Box)<{ $isLoading?: boolean }>`
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 `;
 
 const StyledSkeleton = styled(Skeleton)`

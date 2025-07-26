@@ -3,7 +3,7 @@ import { text } from "@/constants/text";
 /**
  * Format episode count for display
  */
-export const formatEpisodes = (episodes?: number): string => {
+export const formatEpisodes = (episodes?: number | null): string => {
   if (!episodes) {
     return text.animeCard.episodes.unknown;
   }

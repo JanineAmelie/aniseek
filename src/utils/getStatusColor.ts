@@ -1,20 +1,27 @@
 import { Theme } from "@mui/material/styles";
-import { AnimeStatus } from "@/types/anime";
+import { MediaStatus } from "@/types/anime";
 
 /**
  * Get status color for anime status chips
  */
-export const getStatusColor = (status: AnimeStatus, theme?: Theme): string => {
+export const getStatusColor = (
+  status?: MediaStatus | null,
+  theme?: Theme
+): string => {
   if (!theme) {
     return "#9ca3af";
   } // fallback gray
 
-  const colorMap: Record<AnimeStatus, string> = {
-    [AnimeStatus.FINISHED]: theme.palette.cuteColors.mintGreen,
-    [AnimeStatus.RELEASING]: theme.palette.cuteColors.skyBlue,
-    [AnimeStatus.NOT_YET_RELEASED]: theme.palette.cuteColors.peach,
-    [AnimeStatus.CANCELLED]: theme.palette.cuteColors.pinkPrimary,
-    [AnimeStatus.HIATUS]: theme.palette.cuteColors.purplePrimary,
+  if (!status) {
+    return theme.palette.cuteColors.grayMedium;
+  }
+
+  const colorMap: Record<MediaStatus, string> = {
+    [MediaStatus.Finished]: theme.palette.cuteColors.mintGreen,
+    [MediaStatus.Releasing]: theme.palette.cuteColors.skyBlue,
+    [MediaStatus.NotYetReleased]: theme.palette.cuteColors.peach,
+    [MediaStatus.Cancelled]: theme.palette.cuteColors.pinkPrimary,
+    [MediaStatus.Hiatus]: theme.palette.cuteColors.purplePrimary,
   };
 
   return colorMap[status] || theme.palette.cuteColors.grayMedium;

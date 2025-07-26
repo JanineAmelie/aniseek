@@ -1,17 +1,21 @@
 import { text } from "@/constants/text";
-import { AnimeStatus } from "@/types/anime";
+import { MediaStatus } from "@/types/anime";
 
 /**
  * Get formatted anime status
  */
-export const getAnimeStatus = (status: AnimeStatus): string => {
-  const statusMap: Record<AnimeStatus, string> = {
-    [AnimeStatus.FINISHED]: text.animeStatus.completed,
-    [AnimeStatus.RELEASING]: text.animeStatus.airing,
-    [AnimeStatus.NOT_YET_RELEASED]: text.animeStatus.upcoming,
-    [AnimeStatus.CANCELLED]: text.animeStatus.cancelled,
-    [AnimeStatus.HIATUS]: text.animeStatus.hiatus,
+export const getAnimeStatus = (status?: MediaStatus | null): string => {
+  if (!status) {
+    return text.animeStatus.unknown || "Unknown";
+  }
+
+  const statusMap: Record<MediaStatus, string> = {
+    [MediaStatus.Finished]: text.animeStatus.completed,
+    [MediaStatus.Releasing]: text.animeStatus.airing,
+    [MediaStatus.NotYetReleased]: text.animeStatus.upcoming,
+    [MediaStatus.Cancelled]: text.animeStatus.cancelled,
+    [MediaStatus.Hiatus]: text.animeStatus.hiatus,
   };
 
-  return statusMap[status] || text.animeStatus.unknown;
+  return statusMap[status] || "Unknown";
 };

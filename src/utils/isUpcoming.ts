@@ -1,8 +1,8 @@
-import { Anime, AnimeStatus } from "@/types/anime";
+import { Media, MediaStatus } from "@/types/anime";
 
 /**
- * Check if anime is upcoming
+ * Check if an anime is upcoming
  */
-export const isUpcoming = (anime: Anime): boolean => {
-  return anime.status === AnimeStatus.NOT_YET_RELEASED;
+export const isUpcoming = (anime: Media): boolean => {
+  return anime.status === MediaStatus.NotYetReleased;
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { text } from "@/constants/text";
-import { AnimeTitle } from "@/types/anime";
+import { MediaTitle } from "@/types/anime";
 import { getAnimeTitle } from "@/utils";
 
 type HeaderProps = {
@@ -19,7 +19,7 @@ export function Header({ title, onBack }: Readonly<HeaderProps>) {
     english: title?.english || undefined,
     romaji: title?.romaji || undefined,
     native: title?.native || undefined,
-  } as AnimeTitle);
+  } as MediaTitle);
 
   return (
     <Box sx={{ mb: 3 }}>

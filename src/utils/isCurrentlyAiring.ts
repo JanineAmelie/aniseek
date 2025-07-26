@@ -1,8 +1,8 @@
-import { Anime, AnimeStatus } from "@/types/anime";
+import { Media, MediaStatus } from "@/types/anime";
 
 /**
- * Check if anime is currently airing
+ * Check if an anime is currently airing
  */
-export const isCurrentlyAiring = (anime: Anime): boolean => {
-  return anime.status === AnimeStatus.RELEASING;
+export const isCurrentlyAiring = (anime: Media): boolean => {
+  return anime.status === MediaStatus.Releasing;
 };

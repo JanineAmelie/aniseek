@@ -1,4 +1,4 @@
-import { AnimeStatus } from "@/types/anime";
+import { MediaStatus } from "@/types/anime";
 
 export type Genre = {
   name: string;
@@ -15,7 +15,7 @@ export type MockAnime = {
   };
   averageScore: number;
   genres: string[];
-  status: AnimeStatus;
+  status: MediaStatus;
   episodes: number | undefined;
   description: string;
 };
@@ -36,7 +36,7 @@ export const mockPopularAnime: MockAnime[] = [
     },
     averageScore: 90,
     genres: ["Action", "Drama", "Fantasy"],
-    status: AnimeStatus.FINISHED,
+    status: MediaStatus.Finished,
     episodes: 25,
     description:
       "Humanity fights for survival against giant humanoid Titans that have suddenly appeared and devoured most of humanity. The story follows Eren Yeager and his friends as they join the military to fight these creatures.",

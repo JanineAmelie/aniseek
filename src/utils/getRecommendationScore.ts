@@ -1,14 +1,14 @@
-import { Anime, AnimeStatus } from "@/types/anime";
+import { Media, MediaStatus } from "@/types/anime";
 
 /**
  * Get anime recommendation score (0-1) based on various factors
  */
 export const getRecommendationScore = (
-  anime: Anime,
+  anime: Media,
   userPreferences?: {
     favoriteGenres?: string[];
     minScore?: number;
-    preferredStatus?: AnimeStatus[];
+    preferredStatus?: MediaStatus[];
   }
 ): number => {
   let score = 0;
@@ -27,8 +27,8 @@ export const getRecommendationScore = (
 
   // Genre preference factor (30% weight)
   if (userPreferences?.favoriteGenres && anime.genres) {
-    const genreMatches = anime.genres.filter(genre =>
-      userPreferences.favoriteGenres!.includes(genre)
+    const genreMatches = anime.genres.filter(
+      genre => genre && userPreferences.favoriteGenres!.includes(genre)
     ).length;
     const genreScore =
       genreMatches / Math.max(userPreferences.favoriteGenres.length, 1);
@@ -36,7 +36,10 @@ export const getRecommendationScore = (
   }
 
   // Status preference factor (10% weight)
-  if (userPreferences?.preferredStatus?.includes(anime.status)) {
+  if (
+    anime.status &&
+    userPreferences?.preferredStatus?.includes(anime.status)
+  ) {
     score += 0.1;
   }
 

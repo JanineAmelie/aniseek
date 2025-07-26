@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { stripHtmlAndTruncate } from "@/utils";
 
 type DescriptionProps = {
-  description?: string;
+  description?: string | null;
   maxLength?: number;
 };
 

@@ -1,20 +1,20 @@
 import React from "react";
 import { Chip, Stack } from "@mui/material";
 import { text } from "@/constants/text";
-import { AnimeStatus } from "@/types/anime";
+import { MediaStatus } from "@/types/anime";
 import { formatEpisodes, formatScore, getAnimeStatus } from "@/utils";
 
 type StatusChipsProps = {
-  status?: string | null;
+  status?: MediaStatus | null;
   episodes?: number | null;
   averageScore?: number | null;
 };
 
-const getFormattedStatus = (status?: string | null): string => {
+const getFormattedStatus = (status?: MediaStatus | null): string => {
   if (!status) {
     return text.animeStatus.unknown;
   }
-  return getAnimeStatus(status as AnimeStatus);
+  return getAnimeStatus(status);
 };
 
 export function StatusChips({

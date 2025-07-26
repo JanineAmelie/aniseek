@@ -5,12 +5,16 @@ export const truncateDescription = (
   description?: string,
   maxLength: number = 150
 ): string => {
-  if (!description) return "";
+  if (!description) {
+    return "";
+  }
 
   // Remove HTML tags
   const cleanDescription = description.replace(/<[^>]*>/g, "");
 
-  if (cleanDescription.length <= maxLength) return cleanDescription;
+  if (cleanDescription.length <= maxLength) {
+    return cleanDescription;
+  }
 
   // Find the last space before the limit to avoid cutting words
   const truncated = cleanDescription.substring(0, maxLength);

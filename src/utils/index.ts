@@ -11,6 +11,4 @@ export { getScoreColor } from "./getScoreColor";
 export { getStatusColor } from "./getStatusColor";
 export { isCurrentlyAiring } from "./isCurrentlyAiring";
 export { isUpcoming } from "./isUpcoming";
-export { getRecommendationScore } from "./getRecommendationScore";
-export { sortByRecommendation } from "./sortByRecommendation";
 export { stripHtmlAndTruncate, stripHtmlToText } from "./sanitizeHtml";
