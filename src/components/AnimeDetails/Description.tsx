@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
-import { truncateDescription } from "@/utils";
+import { stripHtmlAndTruncate, stripHtmlToText } from "@/utils";
 
 type DescriptionProps = {
   description?: string | null;
@@ -16,9 +16,10 @@ export function Description({
 }: Readonly<DescriptionProps>) {
   if (!description) return null;
 
-  const processedDescription = truncate
-    ? truncateDescription(description, maxLength)
-    : description.replace(/<br\s*\/?>/gi, "<br />");
+  // Strip HTML and get plain text - much safer!
+  const plainTextDescription = truncate
+    ? stripHtmlAndTruncate(description, maxLength)
+    : stripHtmlToText(description);
 
   return (
     <Box sx={{ mb: 3 }}>
@@ -28,12 +29,7 @@ export function Description({
       >
         Description
       </Typography>
-      <DescriptionText
-        variant="body1"
-        dangerouslySetInnerHTML={{
-          __html: processedDescription,
-        }}
-      />
+      <DescriptionText variant="body1">{plainTextDescription}</DescriptionText>
     </Box>
   );
 }

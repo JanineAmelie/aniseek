@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import styled from "styled-components";
-import { truncateDescription } from "@/utils";
+import { stripHtmlAndTruncate } from "@/utils";
 
 type DescriptionProps = {
   description?: string;
@@ -16,14 +16,14 @@ export function Description({
 }: Readonly<DescriptionProps>) {
   if (!description) return null;
 
-  const truncatedDescription = truncateDescription(description, maxLength);
+  const plainTextDescription = stripHtmlAndTruncate(description, maxLength);
 
   return (
     <DescriptionText
       variant="body2"
       color="text.secondary"
     >
-      {truncatedDescription}
+      {plainTextDescription}
     </DescriptionText>
   );
 }
