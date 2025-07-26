@@ -1,22 +1,101 @@
 "use client";
 
 import React from "react";
-import { Box, Container, Typography, Fade } from "@mui/material";
+import { Box, Container, Fade } from "@mui/material";
 import styled from "styled-components";
+import Image from "next/image";
 import { text } from "@/constants/text";
 
-const StyledHeroSection = styled(Box)`
-  background: linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.1) 0%,
-    rgba(236, 72, 153, 0.1) 50%,
-    rgba(59, 130, 246, 0.1) 100%
+export function HeroSection() {
+  return (
+    <StyledHeroSection>
+      <FullWidthImageContainer>
+        <Fade in timeout={1200}>
+          <Image
+            src="/banner.jpg"
+            alt="Anime Banner"
+            fill
+            priority
+            style={{
+              objectFit: "cover",
+            }}
+          />
+        </Fade>
+      </FullWidthImageContainer>
+      <HeroOverlay>
+        <Container maxWidth="lg">
+          <HeroContent>
+            <Fade in timeout={1000}>
+              <Box>
+                <HeroTitle>{text.hero.title}</HeroTitle>
+                <HeroSubtitle>{text.hero.subtitle}</HeroSubtitle>
+              </Box>
+            </Fade>
+          </HeroContent>
+        </Container>
+      </HeroOverlay>
+    </StyledHeroSection>
   );
-  min-height: 60vh;
-  display: flex;
-  align-items: center;
+}
+
+// Custom styled components
+const HeroTitle = styled.h1`
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  background: linear-gradient(45deg, #ffffff, #f0f9ff, #e0f2fe);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  margin: 0;
+  text-align: center;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+`;
+
+const HeroSubtitle = styled.h2`
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  color: #f8fafc;
+  margin-bottom: 2rem;
+  font-weight: 400;
+  margin-top: 1rem;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  opacity: 0.95;
+`;
+
+const StyledHeroSection = styled(Box)`
+  min-height: 30vh;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+`;
+
+const FullWidthImageContainer = styled(Box)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+`;
+
+const HeroOverlay = styled(Box)`
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
 
   &::before {
     content: "";
@@ -25,22 +104,13 @@ const StyledHeroSection = styled(Box)`
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(
-        circle at 20% 20%,
-        rgba(99, 102, 241, 0.3) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 80% 80%,
-        rgba(236, 72, 153, 0.3) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 40% 60%,
-        rgba(59, 130, 246, 0.2) 0%,
-        transparent 50%
-      );
-    z-index: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.2) 0%,
+      rgba(236, 72, 153, 0.2) 50%,
+      rgba(59, 130, 246, 0.2) 100%
+    );
+    z-index: -1;
   }
 `;
 
@@ -48,57 +118,5 @@ const HeroContent = styled(Box)`
   position: relative;
   z-index: 1;
   text-align: center;
+  width: 100%;
 `;
-
-export const HeroSection = () => {
-  return (
-    <StyledHeroSection>
-      <Container maxWidth="lg">
-        <HeroContent>
-          <Fade in timeout={1000}>
-            <Box>
-              <Typography
-                variant="h1"
-                sx={{
-                  fontSize: { xs: "2.5rem", md: "4rem" },
-                  fontWeight: 800,
-                  background:
-                    "linear-gradient(45deg, #6366f1, #ec4899, #06b6d4)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  mb: 2,
-                }}
-              >
-                {text.hero.title}
-              </Typography>
-              <Typography
-                variant="h4"
-                sx={{
-                  fontSize: { xs: "1.2rem", md: "1.8rem" },
-                  color: "text.secondary",
-                  mb: 4,
-                  fontWeight: 400,
-                }}
-              >
-                {text.hero.subtitle}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: "1.1rem",
-                  color: "text.secondary",
-                  mb: 6,
-                  maxWidth: "600px",
-                  mx: "auto",
-                }}
-              >
-                {text.hero.description}
-              </Typography>
-            </Box>
-          </Fade>
-        </HeroContent>
-      </Container>
-    </StyledHeroSection>
-  );
-};

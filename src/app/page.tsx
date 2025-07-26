@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Box, Container } from '@mui/material';
-import { HeroSection } from '@/components/ui/HeroSection';
-import { SearchSection } from '@/components/ui/SearchSection';
-import { GenreSection } from '@/components/ui/GenreSection';
-import { StatsSection } from '@/components/ui/StatsSection';
-import { TrendingSection } from '@/components/ui/TrendingSection';
-import { CallToActionSection } from '@/components/ui/CallToActionSection';
-import { Anime } from '@/types/anime';
-import { mockPopularAnime, genres } from '@/constants/mockData';
+import React, { useState } from "react";
+import { Box, Container } from "@mui/material";
+import styled from "styled-components";
+import { HeroSection } from "@/components/ui/HeroSection";
+import { SearchSection } from "@/components/ui/SearchSection";
+import { GenreSection } from "@/components/ui/GenreSection";
+import { TrendingSection } from "@/components/ui/TrendingSection";
+import { Anime } from "@/types/anime";
+import { mockPopularAnime, genres } from "@/constants/mockData";
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGenreClick = (genreName: string) => {
-    setSelectedGenre(selectedGenre === genreName ? null : genreName);
+    const newSelectedGenre = selectedGenre === genreName ? null : genreName;
+    setSelectedGenre(newSelectedGenre);
     // TODO: Implement genre filtering
   };
 
@@ -28,35 +28,35 @@ export default function Home() {
   };
 
   const handleCardClick = (anime: Anime) => {
-    console.log('Clicked:', anime.title.english);
+    console.log("Clicked:", anime.title.english);
     // TODO: Navigate to anime details page
   };
 
   const handleAddToList = (anime: Anime) => {
-    console.log('Added to list:', anime.title.english);
+    console.log("Added to list:", anime.title.english);
     // TODO: Implement add to list functionality
   };
 
   const handleAddToComparison = (anime: Anime) => {
-    console.log('Added to comparison:', anime.title.english);
+    console.log("Added to comparison:", anime.title.english);
     // TODO: Implement add to comparison functionality
   };
 
   const handleExploreClick = () => {
-    console.log('Explore anime clicked');
+    console.log("Explore anime clicked");
     // TODO: Navigate to explore page
   };
 
   const handleViewListClick = () => {
-    console.log('View my list clicked');
+    console.log("View my list clicked");
     // TODO: Navigate to my list page
   };
 
   return (
-    <Box sx={{ minHeight: '100vh' }}>
+    <PageContainer>
       <HeroSection />
-      
-      <Container maxWidth="lg" sx={{ py: 4 }}>
+
+      <ContentContainer maxWidth="lg">
         <SearchSection
           searchQuery={searchQuery}
           onSearchQueryChange={setSearchQuery}
@@ -69,8 +69,6 @@ export default function Home() {
           onGenreClick={handleGenreClick}
         />
 
-        <StatsSection />
-
         <TrendingSection
           isLoading={isLoading}
           animeList={mockPopularAnime}
@@ -78,12 +76,15 @@ export default function Home() {
           onAddToList={handleAddToList}
           onAddToComparison={handleAddToComparison}
         />
-
-        <CallToActionSection
-          onExploreClick={handleExploreClick}
-          onViewListClick={handleViewListClick}
-        />
-      </Container>
-    </Box>
+      </ContentContainer>
+    </PageContainer>
   );
 }
+
+const PageContainer = styled(Box)`
+  min-height: 100vh;
+`;
+
+const ContentContainer = styled(Container)`
+  padding: 32px 0;
+`;

@@ -12,26 +12,16 @@ import { Search as SearchIcon } from "@mui/icons-material";
 import styled from "styled-components";
 import { text } from "@/constants/text";
 
-const SearchContainer = styled(Paper)`
-  padding: 24px;
-  border-radius: 20px !important;
-  background: rgba(30, 41, 59, 0.8) !important;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(100, 116, 139, 0.2) !important;
-  margin: 32px 0;
-`;
-
 type SearchSectionProps = {
   searchQuery: string;
   onSearchQueryChange: (query: string) => void;
   onSearch: () => void;
 };
-
-export const SearchSection = ({
+export function SearchSection({
   searchQuery,
   onSearchQueryChange,
   onSearch,
-}: SearchSectionProps) => {
+}: Readonly<SearchSectionProps>) {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       onSearch();
@@ -40,11 +30,11 @@ export const SearchSection = ({
 
   return (
     <SearchContainer elevation={0}>
-      <Typography variant="h5" sx={{ mb: 3, fontWeight: 600 }}>
-        <SearchIcon sx={{ mr: 2, verticalAlign: "middle" }} />
+      <SectionTitle variant="h5">
+        <TitleIcon />
         {text.search.title}
-      </Typography>
-      <TextField
+      </SectionTitle>
+      <StyledTextField
         fullWidth
         variant="outlined"
         placeholder={text.search.placeholder}
@@ -60,27 +50,45 @@ export const SearchSection = ({
             ),
             endAdornment: (
               <InputAdornment position="end">
-                <Button
-                  variant="contained"
-                  onClick={onSearch}
-                  sx={{
-                    background: "linear-gradient(45deg, #6366f1, #8b5cf6)",
-                    borderRadius: "8px",
-                  }}
-                >
+                <SearchButton variant="contained" onClick={onSearch}>
                   {text.search.button}
-                </Button>
+                </SearchButton>
               </InputAdornment>
             ),
-          },
-        }}
-        sx={{
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "12px",
-            backgroundColor: "rgba(51, 65, 85, 0.5)",
           },
         }}
       />
     </SearchContainer>
   );
-};
+}
+
+const SearchContainer = styled(Paper)`
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  margin: 32px 0;
+`;
+
+const SectionTitle = styled(Typography)`
+  margin-bottom: 24px;
+  font-weight: 600;
+`;
+
+const TitleIcon = styled(SearchIcon)`
+  margin-right: 16px;
+  vertical-align: middle;
+`;
+
+const StyledTextField = styled(TextField)`
+  & .MuiOutlinedInput-root {
+    border-radius: 12px;
+    background-color: rgba(51, 65, 85, 0.5);
+  }
+`;
+
+const SearchButton = styled(Button)`
+  background: linear-gradient(45deg, #6366f1, #8b5cf6);
+  border-radius: 8px;
+`;

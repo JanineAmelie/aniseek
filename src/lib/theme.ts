@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 
-// AniQuest theme with anime-inspired colors
-export const theme = createTheme({
+// AniSeek theme with anime-inspired colors
+export const muiTheme = createTheme({
   palette: {
     primary: {
       main: "#6366f1", // Indigo - for primary actions
@@ -172,44 +172,5 @@ export const theme = createTheme({
   },
 });
 
-// Custom styled-components theme
-export const styledTheme = {
-  colors: {
-    primary: "#6366f1",
-    secondary: "#ec4899",
-    background: "#0f172a",
-    surface: "#1e293b",
-    text: {
-      primary: "#f8fafc",
-      secondary: "#cbd5e1",
-      muted: "#64748b",
-    },
-    accent: {
-      blue: "#0ea5e9",
-      green: "#10b981",
-      orange: "#f59e0b",
-      red: "#ef4444",
-      purple: "#8b5cf6",
-    },
-  },
-  breakpoints: {
-    mobile: "640px",
-    tablet: "768px",
-    desktop: "1024px",
-    wide: "1280px",
-  },
-  spacing: {
-    xs: "4px",
-    sm: "8px",
-    md: "16px",
-    lg: "24px",
-    xl: "32px",
-    xxl: "48px",
-  },
-  shadows: {
-    sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-    md: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-    lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-    xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-  },
-};
+// Combined theme for both MUI and styled-components
+export const theme = muiTheme;

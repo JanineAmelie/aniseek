@@ -6,7 +6,6 @@ import {
   Box,
   Chip,
   Autocomplete,
-  Paper,
   Typography,
   FormControl,
   InputLabel,
@@ -27,23 +26,6 @@ import {
   AnimeFormat,
   AnimeSeason,
 } from "@/types/anime";
-
-const SearchContainer = styled(Box)`
-  padding: 16px;
-  background: rgba(30, 41, 59, 0.95);
-  border-radius: 12px;
-  margin-bottom: 24px;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(100, 116, 139, 0.2);
-`;
-
-const FilterRow = styled(Box)`
-  display: flex;
-  gap: 16px;
-  margin-top: 16px;
-  flex-wrap: wrap;
-  align-items: center;
-`;
 
 const POPULAR_GENRES = [
   "Action",
@@ -138,13 +120,28 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 30 }, (_, i) => currentYear - i);
 
+  // Extract variables from ternaries and conditions
+  const searchValue = filters.search || "";
+  const hasSearchValue = !!filters.search;
+  const filterButtonColor = showAdvancedFilters ? "primary" : "default";
+  const selectedGenres = filters.genre || [];
+  const selectedSort = filters.sort?.[0] || AnimeSort.POPULARITY_DESC;
+  const hasAdvancedFilters = Object.keys(filters).length > 2;
+  const selectedStatus = filters.status || "";
+  const selectedFormat = filters.format || "";
+  const selectedYear = filters.year || "";
+  const selectedSeason = filters.season || "";
+  const scoreRangeText = `Score Range: ${scoreRange[0]}% - ${scoreRange[1]}%`;
+  const episodeRangeMax = episodeRange[1] === 200 ? "200+" : episodeRange[1];
+  const episodeRangeText = `Episode Count: ${episodeRange[0]} - ${episodeRangeMax}`;
+
   return (
     <SearchContainer>
-      <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+      <SearchRow>
         <TextField
           fullWidth
           placeholder="Search anime..."
-          value={filters.search || ""}
+          value={searchValue}
           onChange={(e) => handleSearchChange(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && onSearch()}
           slotProps={{
@@ -154,7 +151,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
                   <SearchIcon />
                 </InputAdornment>
               ),
-              endAdornment: filters.search && (
+              endAdornment: hasSearchValue && (
                 <InputAdornment position="end">
                   <IconButton
                     onClick={() => handleSearchChange("")}
@@ -170,37 +167,36 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
 
         <IconButton
           onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-          color={showAdvancedFilters ? "primary" : "default"}
+          color={filterButtonColor}
         >
           <FilterIcon />
         </IconButton>
-      </Box>
+      </SearchRow>
 
       <FilterRow>
-        <Autocomplete
+        <StyledAutocompleteTags
           multiple
           options={POPULAR_GENRES}
-          value={filters.genre || []}
-          onChange={(_, value) => handleGenreChange(value)}
-          renderTags={(value: readonly string[], getTagProps) =>
-            value.map((option: string, index: number) => (
+          value={selectedGenres}
+          onChange={(_, value) => handleGenreChange(value as string[])}
+          renderValue={(selected) =>
+            (selected as string[]).map((option, index) => (
               <Chip
                 variant="outlined"
                 label={option}
                 size="small"
-                {...getTagProps({ index })}
                 key={option}
+                sx={{ mr: 0.5 }}
               />
             ))
           }
           renderInput={(params) => (
-            <TextField
+            <StyledAutocompleteInput
               {...params}
               variant="outlined"
               label="Genres"
               placeholder="Select genres..."
               size="small"
-              sx={{ minWidth: 200 }}
             />
           )}
           slotProps={{
@@ -210,10 +206,10 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
           }}
         />
 
-        <FormControl size="small" sx={{ minWidth: 150 }}>
+        <StyledFormControl size="small">
           <InputLabel>Sort by</InputLabel>
           <Select
-            value={filters.sort?.[0] || AnimeSort.POPULARITY_DESC}
+            value={selectedSort}
             onChange={(e) => handleSortChange(e.target.value as AnimeSort)}
             label="Sort by"
           >
@@ -223,7 +219,7 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </StyledFormControl>
 
         {Object.keys(filters).length > 2 && (
           <IconButton onClick={clearFilters} size="small" color="secondary">
@@ -369,3 +365,67 @@ export const SearchFilters: React.FC<SearchFiltersProps> = ({
     </SearchContainer>
   );
 };
+
+const SearchContainer = styled(Box)`
+  padding: 16px;
+  background: rgba(30, 41, 59, 0.95);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+`;
+
+const FilterRow = styled(Box)`
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+`;
+
+const SearchRow = styled(Box)`
+  display: flex;
+  gap: 16px;
+  align-items: center;
+`;
+
+const FilterControlsContainer = styled(FilterRow)`
+  flex-direction: column;
+  align-items: stretch;
+`;
+
+const StyledFormControl = styled(FormControl)`
+  min-width: 150px;
+`;
+
+const StyledAutocompleteTags = styled(Autocomplete)`
+  min-width: 200px;
+`;
+
+const StyledAutocompleteInput = styled(TextField)`
+  min-width: 200px;
+`;
+
+const StatusFormControl = styled(FormControl)`
+  min-width: 120px;
+`;
+
+const FormatFormControl = styled(FormControl)`
+  min-width: 120px;
+`;
+
+const YearFormControl = styled(FormControl)`
+  min-width: 100px;
+`;
+
+const SeasonFormControl = styled(FormControl)`
+  min-width: 100px;
+`;
+
+const SliderContainer = styled(Box)`
+  max-width: 300px;
+`;
+
+const SliderBox = styled(Box)`
+  margin-bottom: 16px;
+`;

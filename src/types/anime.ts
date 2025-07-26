@@ -1,25 +1,25 @@
-export interface AnimeTitle {
+export type AnimeTitle = {
   romaji?: string;
   english?: string;
   native?: string;
-}
+};
 
-export interface CoverImage {
+export type CoverImage = {
   large?: string;
   medium?: string;
   color?: string;
-}
+};
 
-export interface AnimeStudio {
+export type AnimeStudio = {
   name: string;
-}
+};
 
-export interface AnimeStats {
+export type AnimeStats = {
   scoreDistribution?: Array<{
     score: number;
     amount: number;
   }>;
-}
+};
 
 export enum AnimeStatus {
   FINISHED = "FINISHED",
@@ -67,7 +67,7 @@ export enum AnimeSource {
   PICTURE_BOOK = "PICTURE_BOOK",
 }
 
-export interface Anime {
+export type Anime = {
   id: number;
   title: AnimeTitle;
   description?: string;
@@ -109,9 +109,9 @@ export interface Anime {
   };
   stats?: AnimeStats;
   siteUrl?: string;
-}
+};
 
-export interface AnimeSearchResult {
+export type AnimeSearchResult = {
   Page: {
     pageInfo: {
       total: number;
@@ -122,10 +122,10 @@ export interface AnimeSearchResult {
     };
     media: Anime[];
   };
-}
+};
 
 // Search and filter interfaces
-export interface AnimeFilters {
+export type AnimeFilters = {
   search?: string;
   genre?: string[];
   year?: number;
@@ -137,7 +137,7 @@ export interface AnimeFilters {
   episodes_greater?: number;
   episodes_lesser?: number;
   sort?: AnimeSort[];
-}
+};
 
 export enum AnimeSort {
   ID = "ID",
@@ -180,7 +180,7 @@ export enum AnimeSort {
 }
 
 // User lists and preferences
-export interface UserAnimeEntry {
+export type UserAnimeEntry = {
   animeId: number;
   userScore?: number;
   status?: "WATCHING" | "COMPLETED" | "PLANNING" | "DROPPED" | "PAUSED";
@@ -189,4 +189,4 @@ export interface UserAnimeEntry {
   startedAt?: Date;
   completedAt?: Date;
   updatedAt?: Date;
-}
+};

@@ -1,10 +1,10 @@
 export const text = {
-  appName: "AniQuest",
+  appName: "AniSeek",
   hero: {
-    title: "AniQuest",
+    title: "AniSeek",
     subtitle: "Discover Your Next Favorite Anime",
     description:
-      "Explore thousands of anime titles, get personalized recommendations, and build your ultimate watchlist with AniQuest.",
+      "Explore thousands of anime titles, get personalized recommendations, and build your ultimate watchlist with AniSeek.",
   },
   search: {
     title: "Find Your Next Adventure",

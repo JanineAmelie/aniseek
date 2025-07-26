@@ -6,6 +6,7 @@ import { TrendingUp as TrendingIcon } from "@mui/icons-material";
 import { AnimeCard } from "@/components/anime/AnimeCard";
 import { Anime } from "@/types/anime";
 import { text } from "@/constants/text";
+import styled from "styled-components";
 
 type TrendingSectionProps = {
   isLoading: boolean;
@@ -15,47 +16,77 @@ type TrendingSectionProps = {
   onAddToComparison: (anime: Anime) => void;
 };
 
-export const TrendingSection = ({
+export function TrendingSection({
   isLoading,
   animeList,
   onCardClick,
   onAddToList,
   onAddToComparison,
-}: TrendingSectionProps) => {
+}: Readonly<TrendingSectionProps>) {
+  const skeletonItems = Array.from(new Array(4), (_, index) => ({
+    id: `skeleton-${index}-${Date.now()}`,
+  }));
+
   return (
-    <Box sx={{ mb: 6 }}>
-      <Typography variant="h5" sx={{ mb: 3, fontWeight: 600 }}>
-        <TrendingIcon sx={{ mr: 2, verticalAlign: "middle" }} />
+    <SectionContainer>
+      <SectionTitle variant="h5">
+        <TitleIcon />
         {text.trending.title}
-      </Typography>
-      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3 }}>
+      </SectionTitle>
+      <ContentGrid>
         {isLoading
-          ? Array.from(new Array(4)).map((_, index) => (
-              <Box
-                key={`trending-skeleton-${index}`}
-                sx={{ flex: { xs: "1 0 100%", sm: "1 0 45%", md: "1 0 22%" } }}
-              >
-                <Skeleton
-                  variant="rectangular"
-                  height={400}
-                  sx={{ borderRadius: 2 }}
-                />
-              </Box>
+          ? skeletonItems.map((item) => (
+              <GridItem key={item.id}>
+                <StyledSkeleton variant="rectangular" height={400} />
+              </GridItem>
             ))
           : animeList.map((anime) => (
-              <Box
-                key={anime.id}
-                sx={{ flex: { xs: "1 0 100%", sm: "1 0 45%", md: "1 0 22%" } }}
-              >
+              <GridItem key={anime.id}>
                 <AnimeCard
                   anime={anime}
                   onCardClick={onCardClick}
                   onAddToList={onAddToList}
                   onAddToComparison={onAddToComparison}
                 />
-              </Box>
+              </GridItem>
             ))}
-      </Box>
-    </Box>
+      </ContentGrid>
+    </SectionContainer>
   );
-};
+}
+
+const SectionContainer = styled(Box)`
+  margin-bottom: 48px;
+`;
+
+const SectionTitle = styled(Typography)`
+  margin-bottom: 24px;
+  font-weight: 600;
+`;
+
+const TitleIcon = styled(TrendingIcon)`
+  margin-right: 16px;
+  vertical-align: middle;
+`;
+
+const ContentGrid = styled(Box)`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+`;
+
+const GridItem = styled(Box)<{ $isLoading?: boolean }>`
+  flex: 1 0 100%;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
+    flex: 1 0 45%;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.values.md}px) {
+    flex: 1 0 22%;
+  }
+`;
+
+const StyledSkeleton = styled(Skeleton)`
+  border-radius: 16px;
+`;
