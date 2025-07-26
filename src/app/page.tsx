@@ -1,15 +1,15 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Box, Container } from "@mui/material";
-import { useRouter } from "next/navigation";
 import styled from "styled-components";
+import { GenreSection } from "@/components/ui/GenreSection";
 import { HeroSection } from "@/components/ui/HeroSection";
 import { SearchSection } from "@/components/ui/SearchSection";
-import { GenreSection } from "@/components/ui/GenreSection";
 import { TrendingSection } from "@/components/ui/TrendingSection";
+import { genres, mockPopularAnime } from "@/constants/mockData";
 import { Anime } from "@/types/anime";
-import { mockPopularAnime, genres } from "@/constants/mockData";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,16 +33,6 @@ export default function Home() {
     router.push(`/anime/${anime.id}`);
   };
 
-  const handleAddToList = (anime: Anime) => {
-    console.log("Added to list:", anime.title.english);
-    // TODO: Implement add to list functionality
-  };
-
-  const handleAddToComparison = (anime: Anime) => {
-    console.log("Added to comparison:", anime.title.english);
-    // TODO: Implement add to comparison functionality
-  };
-
   return (
     <PageContainer>
       <HeroSection />
@@ -64,8 +54,6 @@ export default function Home() {
           isLoading={isLoading}
           animeList={mockPopularAnime}
           onCardClick={handleCardClick}
-          onAddToList={handleAddToList}
-          onAddToComparison={handleAddToComparison}
         />
       </ContentContainer>
     </PageContainer>

@@ -178,15 +178,3 @@ export enum AnimeSort {
   FAVOURITES = "FAVOURITES",
   FAVOURITES_DESC = "FAVOURITES_DESC",
 }
-
-// User lists and preferences
-export type UserAnimeEntry = {
-  animeId: number;
-  userScore?: number;
-  status?: "WATCHING" | "COMPLETED" | "PLANNING" | "DROPPED" | "PAUSED";
-  progress?: number;
-  notes?: string;
-  startedAt?: Date;
-  completedAt?: Date;
-  updatedAt?: Date;
-};

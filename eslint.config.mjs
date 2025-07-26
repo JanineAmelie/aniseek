@@ -30,7 +30,7 @@ const eslintConfig = [
           argsIgnorePattern: "^_",
         },
       ],
-      "curly": ["error", "all"],
+      curly: ["error", "all"],
     },
   },
 ];
