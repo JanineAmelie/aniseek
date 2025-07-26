@@ -1,19 +1,22 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { Box, Container } from "@mui/material";
+import { Bolt as BoltIcon } from "@mui/icons-material";
+import { Box, Container, Typography } from "@mui/material";
 import styled from "styled-components";
+import { Genres } from "@/components/AnimeDetails/Genres";
 import { ErrorSection } from "@/components/ui/ErrorSection";
 import { HeroSection } from "@/components/ui/HeroSection";
 import { SearchSection } from "@/components/ui/SearchSection";
 import { TrendingSection } from "@/components/ui/TrendingSection";
+import { hardCodedGenres } from "@/constants/genres";
 import { text } from "@/constants/text";
 import { useTrendingAnime } from "@/hooks/api/useTrendingAnime";
+import { useAppNavigation } from "@/hooks/useAppNavigation";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
-  const router = useRouter();
+  const { navigateToAnime } = useAppNavigation();
 
   const { data, loading, error, refetch } = useTrendingAnime(1, 4);
 
@@ -27,7 +30,7 @@ export default function Home() {
   };
 
   const handleCardClick = (anime: NonNullable<typeof animeList>[number]) => {
-    router.push(`/anime/${anime.id}`);
+    navigateToAnime(anime.id);
   };
 
   const handleRetry = () => {
@@ -44,6 +47,21 @@ export default function Home() {
           onSearchQueryChange={setSearchQuery}
           onSearch={handleSearch}
         />
+
+        <GenreSection>
+          <SectionTitle
+            variant="h6"
+            gutterBottom
+          >
+            <TitleIcon />
+            {text.common.findAnimeByGenre}
+          </SectionTitle>
+          <Genres
+            genres={hardCodedGenres.map(
+              genre => `${genre.emoji} ${genre.text}`
+            )}
+          />
+        </GenreSection>
 
         {error ? (
           <ErrorSection
@@ -69,4 +87,19 @@ const PageContainer = styled(Box)`
 
 const ContentContainer = styled(Container)`
   padding: 32px 0;
+`;
+
+const GenreSection = styled(Box)`
+  margin-bottom: 48px;
+`;
+
+const SectionTitle = styled(Typography)`
+  margin-bottom: 24px;
+  font-weight: 600;
+`;
+
+const TitleIcon = styled(BoltIcon)`
+  margin-right: 16px;
+  vertical-align: middle;
+  color: ${({ theme }) => theme.palette.primary.main};
 `;

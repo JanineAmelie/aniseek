@@ -60,6 +60,7 @@ export const text = {
     unknown: "Unknown",
     scoreNotAvailable: "N/A",
     ellipsis: "...",
+    findAnimeByGenre: "Find Anime by Genre",
   },
   errors: {
     trendingAnime: {
