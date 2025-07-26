@@ -21,9 +21,9 @@ export interface SearchParams {
 }
 
 // Union type of all possible route params
-export type AppRouteParams = 
-  | AnimeDetailsParams 
-  | GenreDetailsParams 
+export type AppRouteParams =
+  | AnimeDetailsParams
+  | GenreDetailsParams
   | SearchParams;
 
 // Helper type for page props in Next.js app router
@@ -38,10 +38,14 @@ export type GenreDetailsPageProps = PageProps<GenreDetailsParams>;
 export type SearchPageProps = PageProps<Record<string, never>>;
 
 // Type guards for route parameters
-export const isAnimeDetailsParams = (params: unknown): params is AnimeDetailsParams => {
-  return typeof params === 'object' && params !== null && 'id' in params;
+export const isAnimeDetailsParams = (
+  params: unknown
+): params is AnimeDetailsParams => {
+  return typeof params === "object" && params !== null && "id" in params;
 };
 
-export const isGenreDetailsParams = (params: unknown): params is GenreDetailsParams => {
-  return typeof params === 'object' && params !== null && 'id' in params;
+export const isGenreDetailsParams = (
+  params: unknown
+): params is GenreDetailsParams => {
+  return typeof params === "object" && params !== null && "id" in params;
 };
