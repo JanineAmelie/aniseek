@@ -39,18 +39,3 @@ export type AnimeItem = NonNullable<AnimeList>[number];
 
 // Search result type
 export type AnimeSearchResult = SearchAnimeQuery;
-
-// Search and filter interfaces
-export type AnimeFilters = {
-  search?: string;
-  genre?: string[];
-  year?: number;
-  season?: MediaSeason;
-  status?: MediaStatus;
-  format?: MediaFormat;
-  averageScore_greater?: number;
-  averageScore_lesser?: number;
-  episodes_greater?: number;
-  episodes_lesser?: number;
-  sort?: MediaSort[];
-};

@@ -61,4 +61,11 @@ export const text = {
     scoreNotAvailable: "N/A",
     ellipsis: "...",
   },
+  errors: {
+    trendingAnime: {
+      title: "Failed to load trending anime",
+      message:
+        "We couldn't fetch the latest trending anime. Please check your connection and try again.",
+    },
+  },
 } as const;

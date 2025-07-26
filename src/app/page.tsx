@@ -8,14 +8,14 @@ import { ErrorSection } from "@/components/ui/ErrorSection";
 import { HeroSection } from "@/components/ui/HeroSection";
 import { SearchSection } from "@/components/ui/SearchSection";
 import { TrendingSection } from "@/components/ui/TrendingSection";
+import { text } from "@/constants/text";
 import { useTrendingAnime } from "@/hooks/api/useTrendingAnime";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
-  // Use the trending anime hook
-  const { data, loading, error, refetch } = useTrendingAnime(1, 6);
+  const { data, loading, error, refetch } = useTrendingAnime(1, 4);
 
   // Extract anime list from the GraphQL response and filter out null values
   const animeList = (data?.Page?.media || []).filter(
@@ -47,8 +47,8 @@ export default function Home() {
 
         {error ? (
           <ErrorSection
-            title="Failed to load trending anime"
-            message="We couldn't fetch the latest trending anime. Please check your connection and try again."
+            title={text.errors.trendingAnime.title}
+            message={text.errors.trendingAnime.message}
             onRetry={handleRetry}
           />
         ) : (
