@@ -5,7 +5,9 @@ import { AnimeStatus } from "@/types/anime";
  * Get status color for anime status chips
  */
 export const getStatusColor = (status: AnimeStatus, theme?: Theme): string => {
-  if (!theme) return "#9ca3af"; // fallback gray
+  if (!theme) {
+    return "#9ca3af";
+  } // fallback gray
 
   const colorMap: Record<AnimeStatus, string> = {
     [AnimeStatus.FINISHED]: theme.palette.cuteColors.mintGreen,

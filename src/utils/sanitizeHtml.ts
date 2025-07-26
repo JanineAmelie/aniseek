@@ -6,7 +6,9 @@ import sanitizeHtml from "sanitize-html";
  * Works on both client and server side (Next.js SSR compatible)
  */
 export const stripHtmlToText = (html: string): string => {
-  if (!html) return "";
+  if (!html) {
+    return "";
+  }
 
   return sanitizeHtml(html, {
     allowedTags: [], // No HTML tags allowed
@@ -21,7 +23,9 @@ export const stripHtmlAndTruncate = (
   html: string,
   maxLength: number = 150
 ): string => {
-  if (!html) return "";
+  if (!html) {
+    return "";
+  }
 
   const plainText = stripHtmlToText(html);
 

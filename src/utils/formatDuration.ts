@@ -2,7 +2,9 @@
  * Get anime duration in minutes formatted as string
  */
 export const formatDuration = (duration?: number): string => {
-  if (!duration) return "Unknown";
+  if (!duration) {
+    return "Unknown";
+  }
 
   if (duration < 60) {
     return `${duration} min`;

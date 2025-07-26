@@ -14,11 +14,7 @@ type AnimeCardProps = {
 export function AnimeCard({ anime, onCardClick }: Readonly<AnimeCardProps>) {
   const animeTitle = getAnimeTitle(anime.title);
 
-  const handleCardClick = (e: React.MouseEvent) => {
-    // Prevent card click when clicking on action buttons
-    if ((e.target as HTMLElement).closest(".card-actions")) {
-      return;
-    }
+  const handleCardClick = () => {
     onCardClick?.(anime);
   };
 
