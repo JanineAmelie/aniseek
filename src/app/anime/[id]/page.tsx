@@ -15,20 +15,13 @@ import {
 } from "@mui/material";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import styled from "styled-components";
-import { useQuery } from "@apollo/client";
-import { GET_ANIME_DETAILS } from "@/lib/queries";
-import { Anime } from "@/types/anime";
-import {
-  getAnimeTitle,
-  formatScore,
-  formatEpisodes,
-  getAnimeStatus,
-} from "@/utils/anime";
+
+import { useAnimeDetails } from "@/hooks/useGeneratedAnimeQueries";
 
 export default function AnimeDetailsPage() {
   const params = useParams();
   const router = useRouter();
-  const [animeId, setAnimeId] = useState<number | null>(null);
+  const [animeId, setAnimeId] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     if (params.id) {
@@ -39,10 +32,7 @@ export default function AnimeDetailsPage() {
     }
   }, [params.id]);
 
-  const { data, loading, error } = useQuery(GET_ANIME_DETAILS, {
-    variables: { id: animeId },
-    skip: !animeId,
-  });
+  const { data, loading, error } = useAnimeDetails(animeId || 0);
 
   if (!animeId) {
     return (
@@ -105,9 +95,52 @@ export default function AnimeDetailsPage() {
     );
   }
 
-  const anime: Anime = data.Media;
-  const animeTitle = getAnimeTitle(anime.title);
+  const anime = data.Media;
+
+  if (!anime) {
+    return (
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Typography variant="h4" color="error">
+          Anime not found
+        </Typography>
+      </Container>
+    );
+  }
+
+  const animeTitle =
+    anime.title?.english ||
+    anime.title?.romaji ||
+    anime.title?.native ||
+    "Unknown Title";
   const coverImage = anime.coverImage?.large || anime.coverImage?.medium;
+
+  const formatScore = (score?: number | null): string => {
+    if (!score) return "N/A";
+    return `${score}%`;
+  };
+
+  const formatEpisodes = (episodes?: number | null): string => {
+    if (!episodes) return "Unknown";
+    return episodes === 1 ? "1 Episode" : `${episodes} Episodes`;
+  };
+
+  const getAnimeStatus = (status?: string | null): string => {
+    if (!status) return "Unknown";
+    switch (status) {
+      case "FINISHED":
+        return "Finished";
+      case "RELEASING":
+        return "Releasing";
+      case "NOT_YET_RELEASED":
+        return "Not Yet Released";
+      case "CANCELLED":
+        return "Cancelled";
+      case "HIATUS":
+        return "Hiatus";
+      default:
+        return status;
+    }
+  };
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -170,7 +203,11 @@ export default function AnimeDetailsPage() {
                 </Typography>
                 <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                   {anime.genres.map((genre) => (
-                    <Chip key={genre} label={genre} size="small" />
+                    <Chip
+                      key={genre || "unknown"}
+                      label={genre || "Unknown"}
+                      size="small"
+                    />
                   ))}
                 </Stack>
               </Box>

@@ -112,25 +112,6 @@ const HeroOverlay = styled(Box)`
   height: 100%;
   display: flex;
   align-items: center;
-
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(255, 250, 245, 0.3) 40%,
-      rgba(255, 240, 245, 0.6) 70%,
-      ${(props) => props.theme.palette.cuteColors.cream} 85%,
-      ${(props) => props.theme.palette.cuteColors.pinkBlush} 100%
-    );
-    pointer-events: none;
-    z-index: 3;
-  }
 `;
 
 const HeroContent = styled(Box)`
