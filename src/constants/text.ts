@@ -31,4 +31,19 @@ export const text = {
     exploreButton: "Explore Anime",
     myListButton: "View My List",
   },
+  animeCard: {
+    addToList: "Add to My List",
+    removeFromList: "Remove from My List",
+    addToComparison: "Add to Comparison",
+    removeFromComparison: "Remove from Comparison",
+    comparisonFull: "Comparison Full (4 max)",
+    myRating: "My Rating:",
+    unknownTitle: "Unknown Title",
+    scoreNotAvailable: "N/A",
+    episodes: {
+      single: "1 Episode",
+      multiple: "{count} Episodes",
+      unknown: "Unknown",
+    },
+  },
 } as const;

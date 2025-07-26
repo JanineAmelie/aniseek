@@ -3,7 +3,7 @@
 import React from "react";
 import { Box, Typography, Skeleton } from "@mui/material";
 import { TrendingUp as TrendingIcon } from "@mui/icons-material";
-import { AnimeCard } from "@/components/anime/AnimeCard";
+import { AnimeCard } from "@/components/AnimeCard/AnimeCard";
 import { Anime } from "@/types/anime";
 import { text } from "@/constants/text";
 import styled from "styled-components";
