@@ -187,25 +187,7 @@ export const muiTheme = createTheme(baseTheme, {
         }),
       },
     },
-    MuiTextField: {
-      styleOverrides: {
-        root: ({ theme }: { theme: Theme }) => ({
-          "& .MuiOutlinedInput-root": {
-            borderRadius: 12,
-            backgroundColor: theme.palette.cuteColors.cream,
-            "& fieldset": {
-              borderColor: theme.palette.cuteColors.purpleSoft,
-            },
-            "&:hover fieldset": {
-              borderColor: theme.palette.cuteColors.purpleLight,
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: theme.palette.cuteColors.pinkPrimary,
-            },
-          },
-        }),
-      },
-    },
+
     MuiAppBar: {
       styleOverrides: {
         root: ({ theme }: { theme: Theme }) => ({
@@ -219,8 +201,6 @@ export const muiTheme = createTheme(baseTheme, {
       styleOverrides: {
         root: ({ theme }: { theme: Theme }) => ({
           backgroundImage: `linear-gradient(135deg, ${theme.palette.cuteColors.cream} 0%, ${theme.palette.cuteColors.pinkBlush} 100%)`,
-          borderRadius: 16,
-          border: `1px solid ${theme.palette.cuteColors.pinkSoft}`,
         }),
       },
     },

@@ -30,10 +30,7 @@ export function SearchSection({
 
   return (
     <SearchContainer elevation={0}>
-      <SectionTitle variant="h5">
-        <TitleIcon />
-        {text.search.title}
-      </SectionTitle>
+      <SectionTitle variant="h5">{text.search.title}</SectionTitle>
       <StyledTextField
         fullWidth
         variant="outlined"
@@ -76,15 +73,9 @@ const SectionTitle = styled(Typography)`
   font-weight: 600;
 `;
 
-const TitleIcon = styled(SearchIcon)`
-  margin-right: 16px;
-  vertical-align: middle;
-`;
-
 const StyledTextField = styled(TextField)`
   & .MuiOutlinedInput-root {
     border-radius: 12px;
-    background-color: ${(props) => props.theme.palette.cuteColors.cream};
   }
 `;
 

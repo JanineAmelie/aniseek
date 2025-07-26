@@ -1,3 +1,4 @@
+// @TODO: intl
 export const text = {
   appName: "AniSeek",
   hero: {

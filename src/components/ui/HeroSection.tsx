@@ -18,6 +18,7 @@ export function HeroSection() {
             priority
             style={{
               objectFit: "cover",
+              objectPosition: "center 30%",
             }}
           />
         </Fade>
@@ -26,10 +27,12 @@ export function HeroSection() {
         <Container maxWidth="lg">
           <HeroContent>
             <Fade in timeout={1000}>
-              <Box>
-                <HeroTitle>{text.hero.title}</HeroTitle>
-                <HeroSubtitle>{text.hero.subtitle}</HeroSubtitle>
-              </Box>
+              <TitleWrapper>
+                <TopTitle>{text.hero.subtitle}</TopTitle>
+                <HeroTitle data-text={text.hero.title}>
+                  {text.hero.title}
+                </HeroTitle>
+              </TitleWrapper>
             </Fade>
           </HeroContent>
         </Container>
@@ -39,41 +42,48 @@ export function HeroSection() {
 }
 
 // Custom styled components
-const HeroTitle = styled.h1`
-  font-size: clamp(3rem, 6vw, 5rem);
-  font-weight: 800;
-  background: linear-gradient(
-    45deg,
-    ${(props) => props.theme.palette.cuteColors.cream},
-    ${(props) => props.theme.palette.cuteColors.pinkLight},
-    ${(props) => props.theme.palette.cuteColors.purpleLight}
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 1rem;
-  margin: 0;
-  text-align: center;
-  text-shadow: 0 4px 8px ${(props) => props.theme.palette.cuteColors.softShadow};
-  filter: drop-shadow(
-    0 2px 4px ${(props) => props.theme.palette.cuteColors.softShadow}
-  );
+const TitleWrapper = styled.div`
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  transform: skew(0, -10deg);
 `;
 
-const HeroSubtitle = styled.h2`
-  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-  color: ${(props) => props.theme.palette.cuteColors.cream};
-  margin-bottom: 2rem;
-  font-weight: 400;
-  margin-top: 1rem;
+const TopTitle = styled.div`
+  order: 1;
   text-align: center;
-  text-shadow: 0 2px 4px
-    ${(props) => props.theme.palette.cuteColors.blackOverlay};
-  opacity: 0.95;
+  display: block;
+  color: #fff;
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  margin-bottom: 1rem;
+  padding-right: 2rem;
+`;
+
+const HeroTitle = styled.div`
+  order: 2;
+  color: #fde9ff;
+  font-weight: 900;
+  font-size: 120px;
+  line-height: 0.75em;
+  text-align: center;
+  text-shadow: 3px 1px 1px #ff69b4, 2px 2px 1px #da70d6, 4px 2px 1px #ffb3e6,
+    3px 3px 1px #b19cd9, 5px 3px 1px #ff69b4, 4px 4px 1px #da70d6,
+    6px 4px 1px #ffb3e6, 5px 5px 1px #b19cd9, 7px 5px 1px #ff69b4,
+    6px 6px 1px #da70d6, 8px 6px 1px #ffb3e6, 7px 7px 1px #b19cd9,
+    9px 7px 1px #ff69b4;
+  position: relative;
+
+  &:before {
+    content: attr(data-text);
+    position: absolute;
+    text-shadow: 2px 2px 1px #ff69b4, -1px -1px 1px #da70d6,
+      -2px 2px 1px #dda0dd, 1px -1px 1px #ffb347;
+    z-index: 1;
+  }
 `;
 
 const StyledHeroSection = styled(Box)`
-  min-height: 30vh;
+  min-height: 40vh;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -92,33 +102,34 @@ const FullWidthImageContainer = styled(Box)`
 `;
 
 const HeroOverlay = styled(Box)`
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-  background: linear-gradient(
-    135deg,
-    ${(props) => props.theme.palette.cuteColors.blackOverlay} 0%,
-    rgba(0, 0, 0, 0.4) 50%,
-    ${(props) => props.theme.palette.cuteColors.blackOverlay} 100%
-  );
 
-  &::before {
+  &:after {
     content: "";
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: 100px;
     background: linear-gradient(
-      135deg,
-      ${(props) => props.theme.palette.cuteColors.pinkOverlay} 0%,
-      rgba(218, 112, 214, 0.2) 50%,
-      rgba(255, 179, 230, 0.2) 100%
+      to bottom,
+      transparent 0%,
+      rgba(255, 250, 245, 0.3) 40%,
+      rgba(255, 240, 245, 0.6) 70%,
+      ${(props) => props.theme.palette.cuteColors.cream} 85%,
+      ${(props) => props.theme.palette.cuteColors.pinkBlush} 100%
     );
-    z-index: -1;
+    pointer-events: none;
+    z-index: 3;
   }
 `;
 
