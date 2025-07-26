@@ -2,7 +2,7 @@ import { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   schema: "https://graphql.anilist.co",
-  documents: ["src/**/*.{ts,tsx}"],
+  documents: ["src/**/*.{ts,tsx}", "!./src/__generated__/**"],
   generates: {
     "./src/__generated__/": {
       preset: "client",
