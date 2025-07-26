@@ -2,8 +2,7 @@ import {
   useGetTrendingAnimeQuery,
   useGetAnimeByIdQuery,
   useSearchAnimeQuery,
-  useGetGenresQuery,
-} from "../__generated__/hooks";
+} from "../../__generated__/hooks";
 
 export const useTrendingAnime = (page: number = 1, perPage: number = 20) => {
   const result = useGetTrendingAnimeQuery({
@@ -66,8 +65,4 @@ export const useAnimeSearch = (
     hasNextPage: result.data?.Page?.pageInfo?.hasNextPage,
     currentPage: result.data?.Page?.pageInfo?.currentPage,
   };
-};
-
-export const useGenres = () => {
-  return useGetGenresQuery();
 };

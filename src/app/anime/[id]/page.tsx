@@ -16,7 +16,7 @@ import {
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import styled from "styled-components";
 
-import { useAnimeDetails } from "@/hooks/useGeneratedAnimeQueries";
+import { useAnimeDetails } from "@/hooks";
 
 export default function AnimeDetailsPage() {
   const params = useParams();

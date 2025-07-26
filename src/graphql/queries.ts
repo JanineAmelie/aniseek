@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_TRENDING_ANIME = gql`
   query GetTrendingAnime($page: Int, $perPage: Int) {
