@@ -10,6 +10,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { SearchSection } from "@/components/ui/SearchSection";
 import { text } from "@/constants/text";
 import { useAnimeSearch } from "@/hooks/api/useAnimeSearch";
+import { useSearchFiltersDebounce } from "@/hooks/ui";
 import { useAppNavigation } from "@/hooks/useAppNavigation";
 import { MediaFormat, MediaSort, MediaStatus } from "@/types/anime";
 
@@ -27,27 +28,49 @@ export default function SearchPage() {
   const [formatFilter, setFormatFilter] = useState<MediaFormat | "">("");
   const [yearFilter, setYearFilter] = useState<number | "">("");
 
+  // Debounced values to prevent too many API calls
+  const {
+    debouncedSearchQuery,
+    debouncedSortBy,
+    debouncedStatusFilter,
+    debouncedFormatFilter,
+    debouncedYearFilter,
+  } = useSearchFiltersDebounce({
+    searchQuery,
+    sortBy,
+    statusFilter,
+    formatFilter,
+    yearFilter,
+  });
+
   // Pagination
   const [currentPage] = useState(1);
   const perPage = 20;
 
-  // Search hook
+  // Search hook with debounced values
   const { data, loading, error, refetch } = useAnimeSearch(
-    searchQuery,
+    debouncedSearchQuery,
     currentPage,
     perPage,
-    sortBy,
-    statusFilter || undefined,
-    formatFilter || undefined,
-    yearFilter || undefined
+    debouncedSortBy,
+    debouncedStatusFilter || undefined,
+    debouncedFormatFilter || undefined,
+    debouncedYearFilter || undefined
   );
 
-  // Update search when filters change (only if there's a search query)
+  // Update search when debounced filters change (only if there's a search query)
   useEffect(() => {
-    if (searchQuery.trim()) {
+    if (debouncedSearchQuery.trim()) {
       refetch();
     }
-  }, [sortBy, statusFilter, formatFilter, yearFilter, searchQuery, refetch]);
+  }, [
+    debouncedSortBy,
+    debouncedStatusFilter,
+    debouncedFormatFilter,
+    debouncedYearFilter,
+    debouncedSearchQuery,
+    refetch,
+  ]);
 
   useEffect(() => {
     if (searchQuery) {

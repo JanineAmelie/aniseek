@@ -43,6 +43,16 @@ export function SearchFilters({
     onYearChange("");
   };
 
+  // Prevent scrollbar layout shift when dropdown opens
+  const menuProps = {
+    disableScrollLock: true,
+    PaperProps: {
+      style: {
+        maxHeight: 300,
+      },
+    },
+  };
+
   return (
     <FiltersContainer elevation={1}>
       <FilterHeader>
@@ -71,6 +81,7 @@ export function SearchFilters({
             value={sortBy}
             label={text.search.filters.sortBy}
             onChange={e => onSortChange(e.target.value as MediaSort)}
+            MenuProps={menuProps}
           >
             <MenuItem value={MediaSort.PopularityDesc}>
               {text.search.filters.sortOptions.popularityDesc}
@@ -99,6 +110,7 @@ export function SearchFilters({
             value={statusFilter}
             label={text.search.filters.status}
             onChange={e => onStatusChange(e.target.value as MediaStatus | "")}
+            MenuProps={menuProps}
           >
             <MenuItem value="">
               {text.search.filters.statusOptions.all}
@@ -124,6 +136,7 @@ export function SearchFilters({
             value={formatFilter}
             label={text.search.filters.format}
             onChange={e => onFormatChange(e.target.value as MediaFormat | "")}
+            MenuProps={menuProps}
           >
             <MenuItem value="">
               {text.search.filters.formatOptions.all}
@@ -152,6 +165,7 @@ export function SearchFilters({
             value={yearFilter}
             label={text.search.filters.year}
             onChange={e => onYearChange(e.target.value as number | "")}
+            MenuProps={menuProps}
           >
             <MenuItem value="">{text.search.filters.yearOptions.all}</MenuItem>
             {generateYearOptions().map(year => (
