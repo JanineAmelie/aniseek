@@ -3,30 +3,15 @@ import { Card, CardContent, Typography } from "@mui/material";
 import styled from "styled-components";
 import { Anime } from "@/types/anime";
 import { getAnimeTitle } from "@/utils";
-import { Cover, Description, Genres, Info, Score, UserRating } from "./index";
+import { Cover, Description, Genres, Info, Score } from "./index";
 
 type AnimeCardProps = {
   anime: Anime;
-  onAddToList?: (anime: Anime) => void;
-  onRemoveFromList?: (animeId: number) => void;
-  onAddToComparison?: (anime: Anime) => void;
-  onRemoveFromComparison?: (animeId: number) => void;
+
   onCardClick?: (anime: Anime) => void;
-  isInMyList?: boolean;
-  isInComparison?: boolean;
-  canAddToComparison?: boolean;
-  showUserRating?: boolean;
-  userRating?: number;
-  onRatingChange?: (animeId: number, rating: number) => void;
 };
 
-export function AnimeCard({
-  anime,
-  onCardClick,
-  showUserRating = false,
-  userRating,
-  onRatingChange,
-}: Readonly<AnimeCardProps>) {
+export function AnimeCard({ anime, onCardClick }: Readonly<AnimeCardProps>) {
   const animeTitle = getAnimeTitle(anime.title);
 
   const handleCardClick = (e: React.MouseEvent) => {
@@ -40,18 +25,6 @@ export function AnimeCard({
   return (
     <StyledCard onClick={handleCardClick}>
       <Score score={anime.averageScore} />
-
-      {/*  TODO: if we have time 
-      <Actions
-        anime={anime}
-        isInMyList={isInMyList}
-        isInComparison={isInComparison}
-        canAddToComparison={canAddToComparison}
-        onAddToList={onAddToList}
-        onRemoveFromList={onRemoveFromList}
-        onAddToComparison={onAddToComparison}
-        onRemoveFromComparison={onRemoveFromComparison}
-      /> */}
 
       <Cover
         coverImage={anime.coverImage}
@@ -71,14 +44,6 @@ export function AnimeCard({
         <Info anime={anime} />
 
         <Description description={anime.description} />
-
-        {showUserRating && (
-          <UserRating
-            animeId={anime.id}
-            userRating={userRating}
-            onRatingChange={onRatingChange}
-          />
-        )}
 
         <Genres genres={anime.genres} />
       </CardContentContainer>

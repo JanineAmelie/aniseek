@@ -13,7 +13,9 @@ export function Genres({
   genres,
   maxGenres = DEFAULT_MAX_GENRES,
 }: Readonly<GenresProps>) {
-  if (!genres || genres.length === 0) return null;
+  if (!genres || genres.length === 0) {
+    return null;
+  }
 
   const displayGenres = genres.slice(0, maxGenres);
   const extraGenresCount =

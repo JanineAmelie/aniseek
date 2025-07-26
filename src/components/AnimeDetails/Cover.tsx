@@ -13,7 +13,9 @@ type CoverProps = {
 export function Cover({ coverImage, title }: Readonly<CoverProps>) {
   const imageUrl = coverImage?.large || coverImage?.medium;
 
-  if (!imageUrl) return null;
+  if (!imageUrl) {
+    return null;
+  }
 
   return (
     <CoverCard>

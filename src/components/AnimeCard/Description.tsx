@@ -14,7 +14,9 @@ export function Description({
   description,
   maxLength = DEFAULT_MAX_LENGTH,
 }: Readonly<DescriptionProps>) {
-  if (!description) return null;
+  if (!description) {
+    return null;
+  }
 
   const plainTextDescription = stripHtmlAndTruncate(description, maxLength);
 

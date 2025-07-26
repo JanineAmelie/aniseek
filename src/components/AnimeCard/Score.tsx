@@ -8,7 +8,9 @@ type ScoreProps = {
 };
 
 export function Score({ score }: Readonly<ScoreProps>) {
-  if (!score) return null;
+  if (!score) {
+    return null;
+  }
 
   return <ScoreOverlay>{formatScore(score)}</ScoreOverlay>;
 }

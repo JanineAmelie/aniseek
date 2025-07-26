@@ -26,7 +26,9 @@ export function InfoGrid({ anime }: Readonly<InfoGridProps>) {
       anime.favourites
   );
 
-  if (!hasAnyInfo) return null;
+  if (!hasAnyInfo) {
+    return null;
+  }
 
   return (
     <InfoGridContainer>

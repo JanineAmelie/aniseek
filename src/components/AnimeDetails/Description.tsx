@@ -14,7 +14,9 @@ export function Description({
   truncate = false,
   maxLength = 150,
 }: Readonly<DescriptionProps>) {
-  if (!description) return null;
+  if (!description) {
+    return null;
+  }
 
   // Strip HTML and get plain text - much safer!
   const plainTextDescription = truncate

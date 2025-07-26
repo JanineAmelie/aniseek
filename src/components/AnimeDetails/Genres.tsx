@@ -6,7 +6,9 @@ type GenresProps = {
 };
 
 export function Genres({ genres }: Readonly<GenresProps>) {
-  if (!genres || genres.length === 0) return null;
+  if (!genres || genres.length === 0) {
+    return null;
+  }
 
   return (
     <Box sx={{ mb: 3 }}>

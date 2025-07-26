@@ -10,7 +10,9 @@ type StatusChipsProps = {
 };
 
 const getFormattedStatus = (status?: string | null): string => {
-  if (!status) return "Unknown";
+  if (!status) {
+    return "Unknown";
+  }
   return getAnimeStatus(status as AnimeStatus);
 };
 
