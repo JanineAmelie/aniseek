@@ -1,3 +1,4 @@
+import { text } from "@/constants/text";
 import { Anime } from "@/types/anime";
 
 /**
@@ -10,5 +11,5 @@ export const formatYear = (anime: Anime): string => {
     }
     return anime.startDate.year.toString();
   }
-  return "Unknown";
+  return text.common.unknown;
 };

@@ -1,15 +1,25 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import styled from "styled-components";
+import { text } from "@/constants/text";
 
 export function Header() {
   return (
-    <StyledAppBar position="sticky" elevation={0}>
+    <StyledAppBar
+      position="sticky"
+      elevation={0}
+    >
       <Toolbar sx={{ px: { xs: 2, sm: 3 } }}>
-        <Link href="/" passHref>
-          <Logo variant="h5" sx={{ flexGrow: 0, mr: 4 }}>
-            AniSeek
+        <Link
+          href="/"
+          passHref
+        >
+          <Logo
+            variant="h5"
+            sx={{ flexGrow: 0, mr: 4 }}
+          >
+            {text.appName}
           </Logo>
         </Link>
       </Toolbar>
@@ -21,8 +31,8 @@ const Logo = styled(Typography)`
   font-weight: 700;
   background: linear-gradient(
     45deg,
-    ${(props) => props.theme.palette.cuteColors.pinkPrimary},
-    ${(props) => props.theme.palette.cuteColors.purplePrimary}
+    ${props => props.theme.palette.cuteColors.pinkPrimary},
+    ${props => props.theme.palette.cuteColors.purplePrimary}
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -32,6 +42,6 @@ const Logo = styled(Typography)`
 
 const StyledAppBar = styled(AppBar)`
   backdrop-filter: blur(8px);
-  background: ${(props) => props.theme.palette.cuteColors.whiteOverlay};
-  border-bottom: 1px solid ${(props) => props.theme.palette.cuteColors.pinkSoft};
+  background: ${props => props.theme.palette.cuteColors.whiteOverlay};
+  border-bottom: 1px solid ${props => props.theme.palette.cuteColors.pinkSoft};
 `;

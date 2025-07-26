@@ -5,6 +5,7 @@ import React from "react";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import { Box, Button, Container, Typography } from "@mui/material";
 import styled from "styled-components";
+import { text } from "@/constants/text";
 
 export default function NotFound() {
   const router = useRouter();
@@ -19,22 +20,21 @@ export default function NotFound() {
           variant="h1"
           color="primary"
         >
-          404
+          {text.notFound.errorCode}
         </ErrorCode>
         <Typography
           variant="h4"
           gutterBottom
           sx={{ mb: 2 }}
         >
-          Anime Not Found
+          {text.notFound.title}
         </Typography>
         <Typography
           variant="body1"
           color="text.secondary"
           sx={{ mb: 4 }}
         >
-          The anime you&apos;re looking for doesn&apos;t exist or has been
-          removed.
+          {text.notFound.message}
         </Typography>
         <Button
           variant="contained"
@@ -42,7 +42,7 @@ export default function NotFound() {
           onClick={() => router.push("/")}
           size="large"
         >
-          Back to Home
+          {text.notFound.backButton}
         </Button>
       </CenteredContent>
     </Container>

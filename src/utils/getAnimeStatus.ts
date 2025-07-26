@@ -1,3 +1,4 @@
+import { text } from "@/constants/text";
 import { AnimeStatus } from "@/types/anime";
 
 /**
@@ -5,12 +6,12 @@ import { AnimeStatus } from "@/types/anime";
  */
 export const getAnimeStatus = (status: AnimeStatus): string => {
   const statusMap: Record<AnimeStatus, string> = {
-    [AnimeStatus.FINISHED]: "Completed",
-    [AnimeStatus.RELEASING]: "Airing",
-    [AnimeStatus.NOT_YET_RELEASED]: "Upcoming",
-    [AnimeStatus.CANCELLED]: "Cancelled",
-    [AnimeStatus.HIATUS]: "Hiatus",
+    [AnimeStatus.FINISHED]: text.animeStatus.completed,
+    [AnimeStatus.RELEASING]: text.animeStatus.airing,
+    [AnimeStatus.NOT_YET_RELEASED]: text.animeStatus.upcoming,
+    [AnimeStatus.CANCELLED]: text.animeStatus.cancelled,
+    [AnimeStatus.HIATUS]: text.animeStatus.hiatus,
   };
 
-  return statusMap[status] || "Unknown";
+  return statusMap[status] || text.animeStatus.unknown;
 };

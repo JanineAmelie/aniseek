@@ -1,9 +1,11 @@
+import { text } from "@/constants/text";
+
 /**
  * Get anime duration in minutes formatted as string
  */
 export const formatDuration = (duration?: number): string => {
   if (!duration) {
-    return "Unknown";
+    return text.common.unknown;
   }
 
   if (duration < 60) {

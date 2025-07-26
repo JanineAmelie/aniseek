@@ -1,19 +1,22 @@
 "use client";
 
+import Image from "next/image";
 import React from "react";
 import { Box, Container, Fade } from "@mui/material";
 import styled from "styled-components";
-import Image from "next/image";
 import { text } from "@/constants/text";
 
 export function HeroSection() {
   return (
     <StyledHeroSection>
       <FullWidthImageContainer>
-        <Fade in timeout={1200}>
+        <Fade
+          in
+          timeout={1200}
+        >
           <Image
             src="/banner.jpg"
-            alt="Anime Banner"
+            alt={text.hero.bannerAlt}
             fill
             priority
             style={{
@@ -26,7 +29,10 @@ export function HeroSection() {
       <HeroOverlay>
         <Container maxWidth="lg">
           <HeroContent>
-            <Fade in timeout={1000}>
+            <Fade
+              in
+              timeout={1000}
+            >
               <TitleWrapper>
                 <TopTitle>{text.hero.subtitle}</TopTitle>
                 <HeroTitle data-text={text.hero.title}>
@@ -66,18 +72,30 @@ const HeroTitle = styled.div`
   font-size: 120px;
   line-height: 0.75em;
   text-align: center;
-  text-shadow: 3px 1px 1px #ff69b4, 2px 2px 1px #da70d6, 4px 2px 1px #ffb3e6,
-    3px 3px 1px #b19cd9, 5px 3px 1px #ff69b4, 4px 4px 1px #da70d6,
-    6px 4px 1px #ffb3e6, 5px 5px 1px #b19cd9, 7px 5px 1px #ff69b4,
-    6px 6px 1px #da70d6, 8px 6px 1px #ffb3e6, 7px 7px 1px #b19cd9,
+  text-shadow:
+    3px 1px 1px #ff69b4,
+    2px 2px 1px #da70d6,
+    4px 2px 1px #ffb3e6,
+    3px 3px 1px #b19cd9,
+    5px 3px 1px #ff69b4,
+    4px 4px 1px #da70d6,
+    6px 4px 1px #ffb3e6,
+    5px 5px 1px #b19cd9,
+    7px 5px 1px #ff69b4,
+    6px 6px 1px #da70d6,
+    8px 6px 1px #ffb3e6,
+    7px 7px 1px #b19cd9,
     9px 7px 1px #ff69b4;
   position: relative;
 
   &:before {
     content: attr(data-text);
     position: absolute;
-    text-shadow: 2px 2px 1px #ff69b4, -1px -1px 1px #da70d6,
-      -2px 2px 1px #dda0dd, 1px -1px 1px #ffb347;
+    text-shadow:
+      2px 2px 1px #ff69b4,
+      -1px -1px 1px #da70d6,
+      -2px 2px 1px #dda0dd,
+      1px -1px 1px #ffb347;
     z-index: 1;
   }
 `;

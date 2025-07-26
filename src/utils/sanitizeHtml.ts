@@ -1,4 +1,5 @@
 import sanitizeHtml from "sanitize-html";
+import { text } from "@/constants/text";
 
 /**
  * Strip all HTML tags and return clean plain text
@@ -37,6 +38,6 @@ export const stripHtmlAndTruncate = (
   const lastSpaceIndex = truncated.lastIndexOf(" ");
 
   return lastSpaceIndex > 0
-    ? truncated.substring(0, lastSpaceIndex) + "..."
-    : truncated + "...";
+    ? `${truncated.substring(0, lastSpaceIndex)}${text.common.ellipsis}`
+    : `${truncated}${text.common.ellipsis}`;
 };

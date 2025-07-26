@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Chip, Stack, Typography } from "@mui/material";
+import { text } from "@/constants/text";
 
 type GenresProps = {
   genres?: (string | null)[] | null;
@@ -16,7 +17,7 @@ export function Genres({ genres }: Readonly<GenresProps>) {
         variant="h6"
         gutterBottom
       >
-        Genres
+        {text.animeDetails.genres}
       </Typography>
       <Stack
         direction="row"
@@ -27,7 +28,7 @@ export function Genres({ genres }: Readonly<GenresProps>) {
         {genres.map(genre => (
           <Chip
             key={genre || "unknown"}
-            label={genre || "Unknown"}
+            label={genre || text.animeDetails.unknown}
             size="small"
           />
         ))}

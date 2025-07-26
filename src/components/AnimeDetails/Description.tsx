@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
+import { text } from "@/constants/text";
 import { stripHtmlAndTruncate, stripHtmlToText } from "@/utils";
 
 type DescriptionProps = {
@@ -29,7 +30,7 @@ export function Description({
         variant="h6"
         gutterBottom
       >
-        Description
+        {text.animeDetails.description}
       </Typography>
       <DescriptionText variant="body1">{plainTextDescription}</DescriptionText>
     </Box>

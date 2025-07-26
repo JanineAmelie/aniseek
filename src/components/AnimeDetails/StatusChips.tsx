@@ -1,5 +1,6 @@
 import React from "react";
 import { Chip, Stack } from "@mui/material";
+import { text } from "@/constants/text";
 import { AnimeStatus } from "@/types/anime";
 import { formatEpisodes, formatScore, getAnimeStatus } from "@/utils";
 
@@ -11,7 +12,7 @@ type StatusChipsProps = {
 
 const getFormattedStatus = (status?: string | null): string => {
   if (!status) {
-    return "Unknown";
+    return text.animeStatus.unknown;
   }
   return getAnimeStatus(status as AnimeStatus);
 };
@@ -39,7 +40,7 @@ export function StatusChips({
       />
       {averageScore && (
         <Chip
-          label={`Score: ${formatScore(averageScore)}`}
+          label={`${text.animeDetails.score}: ${formatScore(averageScore)}`}
           color="secondary"
           variant="outlined"
         />

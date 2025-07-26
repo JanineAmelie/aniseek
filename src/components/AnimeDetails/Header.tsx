@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
+import { text } from "@/constants/text";
 import { AnimeTitle } from "@/types/anime";
 import { getAnimeTitle } from "@/utils";
 
@@ -22,7 +23,7 @@ export function Header({ title, onBack }: Readonly<HeaderProps>) {
 
   return (
     <Box sx={{ mb: 3 }}>
-      <Tooltip title="Back to Home">
+      <Tooltip title={text.animeDetails.backToHome}>
         <IconButton
           onClick={onBack}
           sx={{
