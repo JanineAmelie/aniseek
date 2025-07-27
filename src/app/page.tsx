@@ -30,6 +30,9 @@ export default function Home() {
   const handleSearch = () => {
     if (searchQuery.trim()) {
       router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      // Navigate to search page to show trending anime when no query
+      router.push("/search");
     }
   };
 

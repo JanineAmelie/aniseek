@@ -22,9 +22,9 @@ export const useAnimeSearch = ({
   seasonYear,
   genre,
 }: UseAnimeSearchOptions) => {
-  // Allow query when there's a search term OR when there are active filters
+  // Allow query when there's a search term OR when there are active filters OR when there's a sort (for trending)
   const hasActiveFilters = Boolean(status || format || seasonYear || genre);
-  const shouldSkip = !search && !hasActiveFilters;
+  const shouldSkip = !search && !hasActiveFilters && !sort;
 
   const result = useSearchAnimeQuery({
     variables: {

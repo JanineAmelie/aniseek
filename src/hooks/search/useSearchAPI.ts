@@ -17,34 +17,24 @@ export function useSearchAPI(state: SearchState) {
     search: debouncedQuery,
     page: 1,
     perPage: 20,
-    sort: debouncedSortBy,
     status: debouncedStatus || undefined,
     format: debouncedFormat || undefined,
     seasonYear: debouncedYear || undefined,
     genre: debouncedGenre || undefined,
   });
 
-  // Check if should perform search
-  const shouldSearch = useMemo(() => {
-    const hasQuery = debouncedQuery.trim().length > 0;
-    const hasFilters = Boolean(
-      debouncedStatus || debouncedFormat || debouncedYear || debouncedGenre
-    );
-    return hasQuery || hasFilters;
+  // Auto-search when debounced values change
+  useEffect(() => {
+    refetch();
   }, [
+    refetch,
     debouncedQuery,
+    debouncedSortBy,
     debouncedStatus,
     debouncedFormat,
     debouncedYear,
     debouncedGenre,
   ]);
-
-  // Auto-search when debounced values change
-  useEffect(() => {
-    if (shouldSearch) {
-      refetch();
-    }
-  }, [shouldSearch, refetch]);
 
   // Processed results
   const searchResults = useMemo(
@@ -61,6 +51,5 @@ export function useSearchAPI(state: SearchState) {
     loading,
     error,
     refetch,
-    shouldSearch,
   };
 }

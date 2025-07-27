@@ -42,8 +42,8 @@ export function SearchResults({
     );
   }
 
-  // No search query and no active filters
-  if (!hasQuery && !hasActiveFilters) {
+  // No search query and no active filters - only show empty state if no results
+  if (!hasQuery && !hasActiveFilters && results.length === 0) {
     return (
       <EmptyStateContainer>
         <NoResultsIcon sx={{ fontSize: 64, opacity: 0.3, mb: 2 }} />
@@ -79,7 +79,7 @@ export function SearchResults({
     );
   }
 
-  // Format results count - different text for search vs filter results
+  // Format results count - different text for search vs filter results vs trending
   const getResultsCountText = () => {
     if (hasQuery) {
       // Search results
@@ -89,14 +89,17 @@ export function SearchResults({
             "{count}",
             totalResults.toLocaleString()
           );
-    } else {
-      // Filter results (no search query)
+    } else if (hasActiveFilters) {
+      // Filter results (no search query but has filters)
       return totalResults === 1
         ? text.search.results.filterResults.single
         : text.search.results.filterResults.multiple.replace(
             "{count}",
             totalResults.toLocaleString()
           );
+    } else {
+      // Trending results (no search query and no filters)
+      return "Trending Anime";
     }
   };
 

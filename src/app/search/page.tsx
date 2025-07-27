@@ -54,7 +54,6 @@ function SearchPageContent() {
             onFormatChange={actions.setFormatFilter}
             yearFilter={state.yearFilter}
             onYearChange={actions.setYearFilter}
-            disabled={!state.searchQuery.trim()}
           />
 
           {error ? (
