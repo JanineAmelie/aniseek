@@ -75,6 +75,10 @@ export function useSearchState() {
   const prevUrlQuery = useRef(urlQuery);
   const prevUrlGenre = useRef(urlGenre);
 
+  // Track if we're updating from URL to prevent infinite loops
+  const isUpdatingFromUrl = useRef(false);
+  const isInitialMount = useRef(true);
+
   // Initialize state with URL params
   const [state, dispatch] = useReducer(searchReducer, {
     ...initialState,
@@ -84,20 +88,35 @@ export function useSearchState() {
 
   // Update state when URL parameters change (only if they actually changed)
   useEffect(() => {
-    if (urlQuery !== prevUrlQuery.current && urlQuery !== state.searchQuery) {
+    // Skip initial mount since state is already initialized with URL params
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      prevUrlQuery.current = urlQuery;
+      prevUrlGenre.current = urlGenre;
+      return;
+    }
+
+    // Only update if URL changed and it's different from previous URL
+    if (urlQuery !== prevUrlQuery.current) {
+      isUpdatingFromUrl.current = true;
       dispatch({ type: SEARCH_ACTIONS.SET_SEARCH_QUERY, payload: urlQuery });
       prevUrlQuery.current = urlQuery;
     }
 
-    if (urlGenre !== prevUrlGenre.current && urlGenre !== state.genreFilter) {
+    if (urlGenre !== prevUrlGenre.current) {
+      isUpdatingFromUrl.current = true;
       dispatch({ type: SEARCH_ACTIONS.SET_GENRE_FILTER, payload: urlGenre });
       prevUrlGenre.current = urlGenre;
     }
-  }, [urlQuery, urlGenre, state.searchQuery, state.genreFilter]);
+
+    // Reset the flag after updates
+    isUpdatingFromUrl.current = false;
+  }, [urlQuery, urlGenre]);
 
   const actions = {
-    setSearchQuery: (query: string) =>
-      dispatch({ type: SEARCH_ACTIONS.SET_SEARCH_QUERY, payload: query }),
+    setSearchQuery: (query: string) => {
+      dispatch({ type: SEARCH_ACTIONS.SET_SEARCH_QUERY, payload: query });
+    },
     setSortBy: (sort: MediaSort) =>
       dispatch({ type: SEARCH_ACTIONS.SET_SORT_BY, payload: sort }),
     setStatusFilter: (status: MediaStatus | "") =>

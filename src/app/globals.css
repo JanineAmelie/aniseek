@@ -1,54 +1,11 @@
-:root {
-  --background: #fdf2f8; /* Pink blush background */
-  --foreground: #374151; /* Dark gray text */
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #f8d7da; /* Pastel pink for dark mode */
-    --foreground: #374151; /* Keep text readable */
-  }
-}
-
+/* Essential global styles for MUI and font optimization */
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* Prevent layout shift when MUI modals/dropdowns open */
-  overflow-y: scroll;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
-/* Prevent layout shift when MUI Select/Modal components open */
-.MuiModal-root {
-  /* Disable scroll lock to prevent body shift */
-}
-
-/* Alternative: Ensure consistent scrollbar space */
+/* Ensure consistent scrollbar space */
 html {
   scrollbar-gutter: stable;
 }
