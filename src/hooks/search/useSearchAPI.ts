@@ -17,6 +17,7 @@ export function useSearchAPI(state: SearchState) {
     search: debouncedQuery,
     page: 1,
     perPage: 20,
+    sort: debouncedSortBy,
     status: debouncedStatus || undefined,
     format: debouncedFormat || undefined,
     seasonYear: debouncedYear || undefined,
