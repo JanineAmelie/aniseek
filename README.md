@@ -12,25 +12,32 @@ Make sure you have Node.js v20 installed on your machine.
 
 ### Development Setup
 
-1. **Install dependencies:**
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/JanineAmelie/aniseek.git
+   cd aniseek
+   ```
+
+2. **Install dependencies:**
 
    ```bash
    npm install
    ```
 
-2. **Generate GraphQL types:**
+3. **Generate GraphQL types:**
 
    ```bash
    npm run codegen
    ```
 
-3. **Run the development server:**
+4. **Run the development server:**
 
    ```bash
    npm run start
    ```
 
-4. **Open your browser:**
+5. **Open your browser:**
    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Important Notes
