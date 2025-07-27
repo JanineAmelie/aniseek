@@ -7,6 +7,7 @@ import {
 } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import styled from "styled-components";
+import { text } from "@/constants/text";
 
 type ErrorSectionProps = {
   title?: string;
@@ -15,8 +16,8 @@ type ErrorSectionProps = {
 };
 
 export function ErrorSection({
-  title = "Oops! Something went wrong",
-  message = "We couldn't load the anime data. Please try again.",
+  title = text.errors.general.title,
+  message = text.errors.general.message,
   onRetry,
 }: Readonly<ErrorSectionProps>) {
   return (
@@ -31,7 +32,7 @@ export function ErrorSection({
           startIcon={<RefreshIcon />}
           onClick={onRetry}
         >
-          Try Again
+          {text.errors.general.retryButton}
         </RetryButton>
       )}
     </ErrorContainer>

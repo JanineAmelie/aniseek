@@ -36,7 +36,7 @@ export function SearchResults({
           variant="h6"
           sx={{ mt: 2 }}
         >
-          Searching...
+          {text.search.results.searchingText}
         </Typography>
       </LoadingContainer>
     );
@@ -73,7 +73,7 @@ export function SearchResults({
           color="text.secondary"
           sx={{ mt: 1 }}
         >
-          Try adjusting your search terms or filters
+          {text.search.results.adjustFiltersHint}
         </Typography>
       </EmptyStateContainer>
     );

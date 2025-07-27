@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
+import { text } from "@/constants/text";
 
 type PageHeaderProps = {
   title: string;
@@ -10,7 +11,7 @@ type PageHeaderProps = {
 export function PageHeader({ title, onBack }: Readonly<PageHeaderProps>) {
   return (
     <Box sx={{ mb: 3 }}>
-      <Tooltip title="Back">
+      <Tooltip title={text.common.backTooltip}>
         <IconButton
           onClick={onBack}
           sx={{

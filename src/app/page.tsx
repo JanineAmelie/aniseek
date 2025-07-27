@@ -39,7 +39,6 @@ export default function Home() {
       g => `${g.emoji} ${g.text}` === genreWithEmoji
     );
     if (genre) {
-      // Use the searchQuery property which should match AniList's genre names
       router.push(`/search?genre=${encodeURIComponent(genre.text)}`);
     }
   };

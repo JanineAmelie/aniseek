@@ -12,7 +12,6 @@ import { useSearchAPI, useSearchState, useSearchURL } from "@/hooks/search";
 import { useAppNavigation } from "@/hooks/useAppNavigation";
 
 function SearchPageContent() {
-  // State management
   const { state, actions, hasActiveFilters } = useSearchState();
 
   const { searchResults, totalResults, loading, error, refetch } =
@@ -21,7 +20,6 @@ function SearchPageContent() {
   const { navigateToHome } = useSearchURL(state);
   const { navigateToAnime } = useAppNavigation();
 
-  // Event handlers
   const handleAnimeClick = (
     anime: NonNullable<typeof searchResults>[number]
   ) => {
@@ -83,7 +81,7 @@ function SearchPageContent() {
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>{text.common.loading}</div>}>
       <SearchPageContent />
     </Suspense>
   );

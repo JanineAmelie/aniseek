@@ -45,6 +45,8 @@ export const text = {
     results: {
       noQuery: "Enter a search term or apply filters to find anime",
       noResults: "No anime found matching your search",
+      searchingText: "Searching...",
+      adjustFiltersHint: "Try adjusting your search terms or filters",
       resultsCount: {
         single: "1 result found",
         multiple: "{count} results found",
@@ -105,8 +107,16 @@ export const text = {
     scoreNotAvailable: "N/A",
     ellipsis: "...",
     findAnimeByGenre: "Find Anime by Genre",
+    backTooltip: "Back",
+    loading: "Loading...",
+    loadingAnimeDetails: "Loading anime details...",
   },
   errors: {
+    general: {
+      title: "Oops! Something went wrong",
+      message: "We couldn't load the anime data. Please try again.",
+      retryButton: "Try Again",
+    },
     trendingAnime: {
       title: "Failed to load trending anime",
       message:

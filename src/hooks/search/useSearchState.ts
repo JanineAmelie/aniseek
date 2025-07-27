@@ -2,7 +2,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useReducer, useRef } from "react";
 import { MediaFormat, MediaSort, MediaStatus } from "@/types/anime";
 
-// Action constants
 export const SEARCH_ACTIONS = {
   SET_SEARCH_QUERY: "SET_SEARCH_QUERY",
   SET_SORT_BY: "SET_SORT_BY",
@@ -13,7 +12,6 @@ export const SEARCH_ACTIONS = {
   RESET_FILTERS: "RESET_FILTERS",
 } as const;
 
-// Types
 export interface SearchState {
   searchQuery: string;
   sortBy: MediaSort;
@@ -32,7 +30,6 @@ type SearchAction =
   | { type: typeof SEARCH_ACTIONS.SET_GENRE_FILTER; payload: string }
   | { type: typeof SEARCH_ACTIONS.RESET_FILTERS };
 
-// Initial state
 const initialState: SearchState = {
   searchQuery: "",
   sortBy: MediaSort.PopularityDesc,
@@ -42,7 +39,6 @@ const initialState: SearchState = {
   genreFilter: "",
 };
 
-// Reducer
 function searchReducer(state: SearchState, action: SearchAction): SearchState {
   switch (action.type) {
     case SEARCH_ACTIONS.SET_SEARCH_QUERY:
@@ -67,26 +63,20 @@ function searchReducer(state: SearchState, action: SearchAction): SearchState {
 export function useSearchState() {
   const searchParams = useSearchParams();
 
-  // Get current URL parameters
   const urlQuery = searchParams?.get("q") || "";
   const urlGenre = searchParams?.get("genre") || "";
 
-  // Use refs to track previous URL values to prevent unnecessary updates
   const prevUrlQuery = useRef(urlQuery);
   const prevUrlGenre = useRef(urlGenre);
 
-  // Track if we're updating from URL to prevent infinite loops
   const isUpdatingFromUrl = useRef(false);
   const isInitialMount = useRef(true);
 
-  // Initialize state with URL params
   const [state, dispatch] = useReducer(searchReducer, {
     ...initialState,
     searchQuery: urlQuery,
     genreFilter: urlGenre,
-  });
-
-  // Update state when URL parameters change (only if they actually changed)
+  }); // Update state when URL parameters change (only if they actually changed)
   useEffect(() => {
     // Skip initial mount since state is already initialized with URL params
     if (isInitialMount.current) {

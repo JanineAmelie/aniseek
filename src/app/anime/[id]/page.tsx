@@ -12,6 +12,7 @@ import {
   InfoGrid,
   StatusChips,
 } from "@/components/AnimeDetails";
+import { text } from "@/constants/text";
 import { useAnimeDetails } from "@/hooks";
 
 export default function AnimeDetailsPage() {
@@ -52,13 +53,12 @@ export default function AnimeDetailsPage() {
         maxWidth="lg"
         sx={{ py: 4 }}
       >
-        <Typography variant="h4">Loading anime details...</Typography>
+        <Typography variant="h4">{text.common.loadingAnimeDetails}</Typography>
       </Container>
     );
   }
 
   if (error || !data?.Media) {
-    // For anime not found, trigger Next.js not-found page
     if (error?.message?.includes("not found") || !data?.Media) {
       notFound();
     }
