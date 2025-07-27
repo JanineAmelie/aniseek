@@ -66,19 +66,26 @@ const GradientChip = styled(Chip)<{ gradient: string }>`
   background: ${props => props.gradient};
   color: white;
   font-weight: 600;
-  font-size: 1rem;
-  padding: 12px 20px;
+  font-size: 1.1rem;
+  padding: 20px 24px;
   height: auto;
-  border-radius: 16px;
+  min-height: 60px;
+  border-radius: 8px;
   border: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   cursor: pointer;
+  flex: 1 1 auto;
+  min-width: 120px;
 
   .MuiChip-label {
-    padding: 0;
-    font-size: 1rem;
+    padding: 8px 0;
+    font-size: 1.1rem;
     font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &:hover {

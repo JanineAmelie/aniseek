@@ -1,7 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Container } from "@mui/material";
 import styled from "styled-components";
 import { SearchFilters, SearchResults } from "@/components/Search";
@@ -9,102 +8,28 @@ import { ErrorSection } from "@/components/ui/ErrorSection";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SearchSection } from "@/components/ui/SearchSection";
 import { text } from "@/constants/text";
-import { useAnimeSearch } from "@/hooks/api/useAnimeSearch";
-import { useSearchFiltersDebounce } from "@/hooks/ui";
+import { useSearchAPI, useSearchState, useSearchURL } from "@/hooks/search";
 import { useAppNavigation } from "@/hooks/useAppNavigation";
-import { MediaFormat, MediaSort, MediaStatus } from "@/types/anime";
 
 export default function SearchPage() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  // State management
+  const { state, actions, hasActiveFilters } = useSearchState();
+
+  const { searchResults, totalResults, loading, error, refetch } =
+    useSearchAPI(state);
+
+  const { navigateToHome } = useSearchURL(state.searchQuery);
   const { navigateToAnime } = useAppNavigation();
 
-  // Search state
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
-
-  // Filter state
-  const [sortBy, setSortBy] = useState<MediaSort>(MediaSort.PopularityDesc);
-  const [statusFilter, setStatusFilter] = useState<MediaStatus | "">("");
-  const [formatFilter, setFormatFilter] = useState<MediaFormat | "">("");
-  const [yearFilter, setYearFilter] = useState<number | "">("");
-
-  // Debounced values to prevent too many API calls
-  const {
-    debouncedSearchQuery,
-    debouncedSortBy,
-    debouncedStatusFilter,
-    debouncedFormatFilter,
-    debouncedYearFilter,
-  } = useSearchFiltersDebounce({
-    searchQuery,
-    sortBy,
-    statusFilter,
-    formatFilter,
-    yearFilter,
-  });
-
-  // Pagination
-  const [currentPage] = useState(1);
-  const perPage = 20;
-
-  // Search hook with debounced values
-  const { data, loading, error, refetch } = useAnimeSearch(
-    debouncedSearchQuery,
-    currentPage,
-    perPage,
-    debouncedSortBy,
-    debouncedStatusFilter || undefined,
-    debouncedFormatFilter || undefined,
-    debouncedYearFilter || undefined
-  );
-
-  // Update search when debounced filters change (only if there's a search query)
-  useEffect(() => {
-    if (debouncedSearchQuery.trim()) {
-      refetch();
-    }
-  }, [
-    debouncedSortBy,
-    debouncedStatusFilter,
-    debouncedFormatFilter,
-    debouncedYearFilter,
-    debouncedSearchQuery,
-    refetch,
-  ]);
-
-  useEffect(() => {
-    if (searchQuery) {
-      const params = new URLSearchParams();
-      params.set("q", searchQuery);
-      router.replace(`/search?${params.toString()}`);
-    } else {
-      router.replace("/search");
-    }
-  }, [searchQuery, router]);
-
-  // Extract and filter results
-  const searchResults = (data?.Page?.media || []).filter(
-    (anime): anime is NonNullable<typeof anime> => anime !== null
-  );
-
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      refetch();
-    }
-  };
-
+  // Event handlers
   const handleAnimeClick = (
     anime: NonNullable<typeof searchResults>[number]
   ) => {
     navigateToAnime(anime.id);
   };
 
-  const handleRetry = () => {
+  const handleSearch = () => {
     refetch();
-  };
-
-  const handleBackToHome = () => {
-    router.push("/");
   };
 
   return (
@@ -112,40 +37,42 @@ export default function SearchPage() {
       <Container maxWidth="lg">
         <PageHeader
           title={text.search.title}
-          onBack={handleBackToHome}
+          onBack={navigateToHome}
         />
 
         <SearchSection
-          searchQuery={searchQuery}
-          onSearchQueryChange={setSearchQuery}
+          searchQuery={state.searchQuery}
+          onSearchQueryChange={actions.setSearchQuery}
           onSearch={handleSearch}
         />
 
         <ContentContainer>
           <SearchFilters
-            sortBy={sortBy}
-            onSortChange={setSortBy}
-            statusFilter={statusFilter}
-            onStatusChange={setStatusFilter}
-            formatFilter={formatFilter}
-            onFormatChange={setFormatFilter}
-            yearFilter={yearFilter}
-            onYearChange={setYearFilter}
+            sortBy={state.sortBy}
+            onSortChange={actions.setSortBy}
+            statusFilter={state.statusFilter}
+            onStatusChange={actions.setStatusFilter}
+            formatFilter={state.formatFilter}
+            onFormatChange={actions.setFormatFilter}
+            yearFilter={state.yearFilter}
+            onYearChange={actions.setYearFilter}
+            disabled={!state.searchQuery.trim()}
           />
 
           {error ? (
             <ErrorSection
               title={text.errors.searchResults.title}
               message={text.errors.searchResults.message}
-              onRetry={handleRetry}
+              onRetry={refetch}
             />
           ) : (
             <SearchResults
               isLoading={loading}
               results={searchResults}
               onAnimeClick={handleAnimeClick}
-              hasQuery={!!searchQuery.trim()}
-              totalResults={data?.Page?.pageInfo?.total || 0}
+              hasQuery={!!state.searchQuery.trim()}
+              hasActiveFilters={hasActiveFilters}
+              totalResults={totalResults}
             />
           )}
         </ContentContainer>

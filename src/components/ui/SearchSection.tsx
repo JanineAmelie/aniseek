@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
+import { Search as SearchIcon } from "@mui/icons-material";
 import {
-  TextField,
-  InputAdornment,
   Button,
+  InputAdornment,
   Paper,
+  TextField,
   Typography,
 } from "@mui/material";
-import { Search as SearchIcon } from "@mui/icons-material";
 import styled from "styled-components";
 import { text } from "@/constants/text";
 
@@ -30,13 +30,13 @@ export function SearchSection({
 
   return (
     <SearchContainer elevation={0}>
-      <SectionTitle variant="h5">{text.search.title}</SectionTitle>
+      <SectionTitle variant="h5">{text.search.cta}</SectionTitle>
       <StyledTextField
         fullWidth
         variant="outlined"
         placeholder={text.search.placeholder}
         value={searchQuery}
-        onChange={(e) => onSearchQueryChange(e.target.value)}
+        onChange={e => onSearchQueryChange(e.target.value)}
         onKeyDown={handleKeyDown}
         slotProps={{
           input: {
@@ -47,7 +47,10 @@ export function SearchSection({
             ),
             endAdornment: (
               <InputAdornment position="end">
-                <SearchButton variant="contained" onClick={onSearch}>
+                <SearchButton
+                  variant="contained"
+                  onClick={onSearch}
+                >
                   {text.search.button}
                 </SearchButton>
               </InputAdornment>
@@ -62,9 +65,9 @@ export function SearchSection({
 const SearchContainer = styled(Paper)`
   padding: 24px;
   border-radius: 20px;
-  background: ${(props) => props.theme.palette.cuteColors.whiteOverlay};
+  background: ${props => props.theme.palette.cuteColors.whiteOverlay};
   backdrop-filter: blur(10px);
-  border: 1px solid ${(props) => props.theme.palette.cuteColors.pinkSoft};
+  border: 1px solid ${props => props.theme.palette.cuteColors.pinkSoft};
   margin: 32px 0;
 `;
 
@@ -82,8 +85,8 @@ const StyledTextField = styled(TextField)`
 const SearchButton = styled(Button)`
   background: linear-gradient(
     45deg,
-    ${(props) => props.theme.palette.cuteColors.pinkPrimary},
-    ${(props) => props.theme.palette.cuteColors.purplePrimary}
+    ${props => props.theme.palette.cuteColors.pinkPrimary},
+    ${props => props.theme.palette.cuteColors.purplePrimary}
   );
   border-radius: 8px;
 `;

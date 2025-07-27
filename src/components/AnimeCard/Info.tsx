@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Chip, Stack, Typography } from "@mui/material";
 import styled from "styled-components";
+import { text } from "@/constants/text";
 import { GetTrendingAnimeQuery } from "@/types/anime";
 import { formatEpisodes, getAnimeStatus } from "@/utils";
 
@@ -19,6 +20,7 @@ export function Info({ anime }: Readonly<InfoProps>) {
         direction="row"
         spacing={1}
         alignItems="center"
+        flexWrap="wrap"
       >
         <Chip
           label={getAnimeStatus(anime.status)}
@@ -31,9 +33,27 @@ export function Info({ anime }: Readonly<InfoProps>) {
         >
           {formatEpisodes(anime.episodes)}
         </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+        >
+          • {getYearDisplay()}
+        </Typography>
       </Stack>
     </InfoContainer>
   );
+
+  // Extract year for display
+  function getYearDisplay() {
+    const start = anime.startDate?.year;
+
+    if (!start) {
+      return text.common.unknown;
+    }
+
+    const end = anime.endDate?.year;
+    return end && end !== start ? `${start} - ${end}` : `${start}`;
+  }
 }
 
 const InfoContainer = styled(Box)`

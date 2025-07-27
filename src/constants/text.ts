@@ -7,7 +7,8 @@ export const text = {
     bannerAlt: "Anime Banner",
   },
   search: {
-    title: "Find Your Next Adventure",
+    title: "Search",
+    cta: "Find your next adventure",
     placeholder: "Search anime titles, genres, or keywords...",
     button: "Search",
     filters: {
@@ -42,11 +43,15 @@ export const text = {
       },
     },
     results: {
-      noQuery: "Enter a search term to find anime",
+      noQuery: "Enter a search term or apply filters to find anime",
       noResults: "No anime found matching your search",
       resultsCount: {
         single: "1 result found",
         multiple: "{count} results found",
+      },
+      filterResults: {
+        single: "1 anime found with selected filters",
+        multiple: "{count} anime found with selected filters",
       },
     },
   },

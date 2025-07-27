@@ -13,6 +13,7 @@ import {
 import styled from "styled-components";
 import { text } from "@/constants/text";
 import { MediaFormat, MediaSort, MediaStatus } from "@/types/anime";
+import { createFilterConfigs } from "./searchFilterConfigs";
 
 type SearchFiltersProps = {
   sortBy: MediaSort;
@@ -23,6 +24,7 @@ type SearchFiltersProps = {
   onFormatChange: (format: MediaFormat | "") => void;
   yearFilter: number | "";
   onYearChange: (year: number | "") => void;
+  disabled?: boolean;
 };
 
 export function SearchFilters({
@@ -34,6 +36,7 @@ export function SearchFilters({
   onFormatChange,
   yearFilter,
   onYearChange,
+  disabled = false,
 }: Readonly<SearchFiltersProps>) {
   const hasActiveFilters = statusFilter || formatFilter || yearFilter;
 
@@ -43,15 +46,21 @@ export function SearchFilters({
     onYearChange("");
   };
 
-  // Prevent scrollbar layout shift when dropdown opens
-  const menuProps = {
-    disableScrollLock: true,
-    PaperProps: {
-      style: {
-        maxHeight: 300,
-      },
+  // Data-driven filter configuration
+  const filterConfigs = createFilterConfigs({
+    values: {
+      sortBy,
+      statusFilter,
+      formatFilter,
+      yearFilter,
     },
-  };
+    callbacks: {
+      onSortChange,
+      onStatusChange,
+      onFormatChange,
+      onYearChange,
+    },
+  });
 
   return (
     <FiltersContainer elevation={1}>
@@ -67,132 +76,40 @@ export function SearchFilters({
             size="small"
             onClick={clearFilters}
             onDelete={clearFilters}
+            disabled={disabled}
           />
         )}
       </FilterHeader>
 
       <FiltersGrid>
-        <FormControl
-          size="small"
-          fullWidth
-        >
-          <InputLabel>{text.search.filters.sortBy}</InputLabel>
-          <Select
-            value={sortBy}
-            label={text.search.filters.sortBy}
-            onChange={e => onSortChange(e.target.value as MediaSort)}
-            MenuProps={menuProps}
+        {filterConfigs.map(({ key, label, value, onChange, options }) => (
+          <FormControl
+            key={key}
+            size="small"
+            fullWidth
+            disabled={disabled}
           >
-            <MenuItem value={MediaSort.PopularityDesc}>
-              {text.search.filters.sortOptions.popularityDesc}
-            </MenuItem>
-            <MenuItem value={MediaSort.ScoreDesc}>
-              {text.search.filters.sortOptions.scoreDesc}
-            </MenuItem>
-            <MenuItem value={MediaSort.TitleRomaji}>
-              {text.search.filters.sortOptions.titleAsc}
-            </MenuItem>
-            <MenuItem value={MediaSort.StartDateDesc}>
-              {text.search.filters.sortOptions.newestFirst}
-            </MenuItem>
-            <MenuItem value={MediaSort.TrendingDesc}>
-              {text.search.filters.sortOptions.trending}
-            </MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl
-          size="small"
-          fullWidth
-        >
-          <InputLabel>{text.search.filters.status}</InputLabel>
-          <Select
-            value={statusFilter}
-            label={text.search.filters.status}
-            onChange={e => onStatusChange(e.target.value as MediaStatus | "")}
-            MenuProps={menuProps}
-          >
-            <MenuItem value="">
-              {text.search.filters.statusOptions.all}
-            </MenuItem>
-            <MenuItem value={MediaStatus.Releasing}>
-              {text.search.filters.statusOptions.airing}
-            </MenuItem>
-            <MenuItem value={MediaStatus.Finished}>
-              {text.search.filters.statusOptions.completed}
-            </MenuItem>
-            <MenuItem value={MediaStatus.NotYetReleased}>
-              {text.search.filters.statusOptions.upcoming}
-            </MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl
-          size="small"
-          fullWidth
-        >
-          <InputLabel>{text.search.filters.format}</InputLabel>
-          <Select
-            value={formatFilter}
-            label={text.search.filters.format}
-            onChange={e => onFormatChange(e.target.value as MediaFormat | "")}
-            MenuProps={menuProps}
-          >
-            <MenuItem value="">
-              {text.search.filters.formatOptions.all}
-            </MenuItem>
-            <MenuItem value={MediaFormat.Tv}>
-              {text.search.filters.formatOptions.tv}
-            </MenuItem>
-            <MenuItem value={MediaFormat.Movie}>
-              {text.search.filters.formatOptions.movie}
-            </MenuItem>
-            <MenuItem value={MediaFormat.Ova}>
-              {text.search.filters.formatOptions.ova}
-            </MenuItem>
-            <MenuItem value={MediaFormat.Special}>
-              {text.search.filters.formatOptions.special}
-            </MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl
-          size="small"
-          fullWidth
-        >
-          <InputLabel>{text.search.filters.year}</InputLabel>
-          <Select
-            value={yearFilter}
-            label={text.search.filters.year}
-            onChange={e => onYearChange(e.target.value as number | "")}
-            MenuProps={menuProps}
-          >
-            <MenuItem value="">{text.search.filters.yearOptions.all}</MenuItem>
-            {generateYearOptions().map(year => (
-              <MenuItem
-                key={year}
-                value={year}
-              >
-                {year}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+            <InputLabel>{label}</InputLabel>
+            <StyledSelect
+              value={value}
+              label={label}
+              onChange={e => onChange(e.target.value as string | number)}
+              disabled={disabled}
+            >
+              {options.map(option => (
+                <MenuItem
+                  key={option.value}
+                  value={option.value}
+                >
+                  {option.label}
+                </MenuItem>
+              ))}
+            </StyledSelect>
+          </FormControl>
+        ))}
       </FiltersGrid>
     </FiltersContainer>
   );
-}
-
-// Helper function to generate year options
-function generateYearOptions(): number[] {
-  const currentYear = new Date().getFullYear();
-  const years: number[] = [];
-
-  for (let year = currentYear + 1; year >= 1960; year--) {
-    years.push(year);
-  }
-
-  return years;
 }
 
 const FiltersContainer = styled(Paper)`
@@ -223,5 +140,20 @@ const FiltersGrid = styled(Box)`
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
+  }
+`;
+
+const StyledSelect = styled(Select).attrs({
+  MenuProps: {
+    disableScrollLock: true,
+    PaperProps: {
+      style: {
+        maxHeight: 300,
+      },
+    },
+  },
+})`
+  .MuiSelect-select {
+    min-height: 1.4375em;
   }
 `;

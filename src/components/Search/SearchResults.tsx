@@ -15,6 +15,7 @@ type SearchResultsProps = {
   results: NonNullable<NonNullable<SearchAnimeQuery["Page"]>["media"]>;
   onAnimeClick: (anime: NonNullable<AnimeFromSearchQuery>) => void;
   hasQuery: boolean;
+  hasActiveFilters: boolean;
   totalResults: number;
 };
 
@@ -23,6 +24,7 @@ export function SearchResults({
   results,
   onAnimeClick,
   hasQuery,
+  hasActiveFilters,
   totalResults,
 }: Readonly<SearchResultsProps>) {
   // Loading state
@@ -40,8 +42,8 @@ export function SearchResults({
     );
   }
 
-  // No search query
-  if (!hasQuery) {
+  // No search query and no active filters
+  if (!hasQuery && !hasActiveFilters) {
     return (
       <EmptyStateContainer>
         <NoResultsIcon sx={{ fontSize: 64, opacity: 0.3, mb: 2 }} />
@@ -77,14 +79,26 @@ export function SearchResults({
     );
   }
 
-  // Format results count
-  const resultsCountText =
-    totalResults === 1
-      ? text.search.results.resultsCount.single
-      : text.search.results.resultsCount.multiple.replace(
-          "{count}",
-          totalResults.toLocaleString()
-        );
+  // Format results count - different text for search vs filter results
+  const getResultsCountText = () => {
+    if (hasQuery) {
+      // Search results
+      return totalResults === 1
+        ? text.search.results.resultsCount.single
+        : text.search.results.resultsCount.multiple.replace(
+            "{count}",
+            totalResults.toLocaleString()
+          );
+    } else {
+      // Filter results (no search query)
+      return totalResults === 1
+        ? text.search.results.filterResults.single
+        : text.search.results.filterResults.multiple.replace(
+            "{count}",
+            totalResults.toLocaleString()
+          );
+    }
+  };
 
   return (
     <ResultsContainer>
@@ -93,7 +107,7 @@ export function SearchResults({
           variant="h6"
           color="text.secondary"
         >
-          {resultsCountText}
+          {getResultsCountText()}
         </Typography>
       </ResultsHeader>
 

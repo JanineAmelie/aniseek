@@ -15,7 +15,12 @@ type CoverProps = {
 export function Cover({ coverImage, title }: Readonly<CoverProps>) {
   const imageUrl = coverImage?.large || coverImage?.medium;
 
-  return <StyledCardMedia image={imageUrl || undefined} title={title} />;
+  return (
+    <StyledCardMedia
+      image={imageUrl || undefined}
+      title={title}
+    />
+  );
 }
 
 const StyledCardMedia = styled(CardMedia)`

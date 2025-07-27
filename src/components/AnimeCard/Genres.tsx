@@ -14,7 +14,7 @@ export function Genres({
   maxGenres = DEFAULT_MAX_GENRES,
 }: Readonly<GenresProps>) {
   if (!genres || genres.length === 0) {
-    return null;
+    return undefined;
   }
 
   const displayGenres = genres.slice(0, maxGenres);
@@ -24,8 +24,12 @@ export function Genres({
 
   return (
     <GenreContainer>
-      {displayGenres.map((genre) => (
-        <GenreChip key={genre} label={genre} size="small" />
+      {displayGenres.map(genre => (
+        <GenreChip
+          key={genre}
+          label={genre}
+          size="small"
+        />
       ))}
       {showExtraGenres && (
         <GenreChip

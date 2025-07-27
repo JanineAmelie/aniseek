@@ -10,9 +10,13 @@ export const useAnimeSearch = (
   format?: MediaFormat,
   seasonYear?: number
 ) => {
+  // Allow query when there's a search term OR when there are active filters
+  const hasActiveFilters = Boolean(status || format || seasonYear);
+  const shouldSkip = !search && !hasActiveFilters;
+
   const result = useSearchAnimeQuery({
     variables: {
-      search,
+      search: search || undefined, // Don't send empty string
       page,
       perPage,
       sort: sort ? [sort] : undefined,
@@ -20,7 +24,7 @@ export const useAnimeSearch = (
       format,
       seasonYear,
     },
-    skip: !search,
+    skip: shouldSkip,
     notifyOnNetworkStatusChange: true,
   });
 
@@ -28,7 +32,7 @@ export const useAnimeSearch = (
     if (result.data?.Page?.pageInfo?.hasNextPage) {
       return result.fetchMore({
         variables: {
-          search,
+          search: search || undefined,
           page: (result.data?.Page?.pageInfo?.currentPage || 0) + 1,
           perPage,
           sort: sort ? [sort] : undefined,

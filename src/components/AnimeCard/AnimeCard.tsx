@@ -17,9 +17,9 @@ type AnimeCardProps = {
 export function AnimeCard({ anime, onCardClick }: Readonly<AnimeCardProps>) {
   const animeTitle = getAnimeTitle(anime.title);
 
-  const handleCardClick = () => {
+  function handleCardClick() {
     onCardClick?.(anime);
-  };
+  }
 
   return (
     <StyledCard onClick={handleCardClick}>
