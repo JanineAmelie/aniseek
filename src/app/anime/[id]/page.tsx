@@ -20,13 +20,13 @@ export default function AnimeDetailsPage() {
   const [animeId, setAnimeId] = useState<number | undefined>(undefined);
 
   useEffect(() => {
-    if (params.id) {
+    if (params && params.id) {
       const id = parseInt(params.id as string);
       if (!isNaN(id)) {
         setAnimeId(id);
       }
     }
-  }, [params.id]);
+  }, [params]);
 
   const { data, loading, error } = useAnimeDetails(animeId || 0);
 

@@ -68,8 +68,8 @@ export function useSearchState() {
   const searchParams = useSearchParams();
 
   // Get current URL parameters
-  const urlQuery = searchParams.get("q") || "";
-  const urlGenre = searchParams.get("genre") || "";
+  const urlQuery = searchParams?.get("q") || "";
+  const urlGenre = searchParams?.get("genre") || "";
 
   // Use refs to track previous URL values to prevent unnecessary updates
   const prevUrlQuery = useRef(urlQuery);

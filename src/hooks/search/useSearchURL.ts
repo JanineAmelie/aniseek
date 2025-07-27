@@ -30,7 +30,7 @@ export function useSearchURL(searchState: SearchState) {
       : "/search";
 
     // Only update URL if it's different from current URL
-    const currentParams = searchParams.toString();
+    const currentParams = searchParams?.toString();
     const currentUrl = currentParams ? `/search?${currentParams}` : "/search";
 
     if (newUrl !== currentUrl) {
