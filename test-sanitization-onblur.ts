@@ -17,17 +17,22 @@ const testCases = [
 console.log("\n1. validateUserInput (for real-time typing):");
 testCases.forEach((input, i) => {
   const result = validateUserInput(input);
-  console.log(`${i + 1}. "${input.substring(0, 50)}..." -> "${result.substring(0, 50)}..."`);
+  console.log(
+    `${i + 1}. "${input.substring(0, 50)}..." -> "${result.substring(0, 50)}..."`
+  );
 });
 
 console.log("\n2. sanitizeUserInput (for onBlur/submit):");
 testCases.forEach((input, i) => {
   const result = sanitizeUserInput(input);
-  console.log(`${i + 1}. "${input.substring(0, 50)}..." -> "${result.substring(0, 50)}..."`);
+  console.log(
+    `${i + 1}. "${input.substring(0, 50)}..." -> "${result.substring(0, 50)}..."`
+  );
 });
 
 console.log("\n=== Performance comparison ===");
-const longInput = "<script>alert('test')</script>" + "search query ".repeat(100);
+const longInput =
+  "<script>alert('test')</script>" + "search query ".repeat(100);
 
 console.time("validateUserInput (lightweight)");
 for (let i = 0; i < 1000; i++) {
