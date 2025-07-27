@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { Container } from "@mui/material";
 import styled from "styled-components";
 import { SearchFilters, SearchResults } from "@/components/Search";
@@ -11,14 +11,14 @@ import { text } from "@/constants/text";
 import { useSearchAPI, useSearchState, useSearchURL } from "@/hooks/search";
 import { useAppNavigation } from "@/hooks/useAppNavigation";
 
-export default function SearchPage() {
+function SearchPageContent() {
   // State management
   const { state, actions, hasActiveFilters } = useSearchState();
 
   const { searchResults, totalResults, loading, error, refetch } =
     useSearchAPI(state);
 
-  const { navigateToHome } = useSearchURL(state.searchQuery);
+  const { navigateToHome } = useSearchURL(state);
   const { navigateToAnime } = useAppNavigation();
 
   // Event handlers
@@ -78,6 +78,14 @@ export default function SearchPage() {
         </ContentContainer>
       </Container>
     </PageContainer>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchPageContent />
+    </Suspense>
   );
 }
 

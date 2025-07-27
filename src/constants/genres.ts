@@ -2,31 +2,31 @@ export const hardCodedGenres = [
   {
     emoji: "🦸",
     text: "Action",
-    searchQuery: "action",
+    searchQuery: "Action",
   },
   {
     emoji: "💕",
     text: "Romance",
-    searchQuery: "romance",
+    searchQuery: "Romance",
   },
   {
     emoji: "😂",
     text: "Comedy",
-    searchQuery: "comedy",
+    searchQuery: "Comedy",
   },
   {
     emoji: "🎭",
     text: "Drama",
-    searchQuery: "drama",
+    searchQuery: "Drama",
   },
   {
     emoji: "🧙",
     text: "Fantasy",
-    searchQuery: "fantasy",
+    searchQuery: "Fantasy",
   },
   {
     emoji: "🤖",
     text: "Sci-Fi",
-    searchQuery: "sci-fi",
+    searchQuery: "Sci-Fi",
   },
 ];

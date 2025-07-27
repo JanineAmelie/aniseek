@@ -1,17 +1,29 @@
 import { MediaFormat, MediaSort, MediaStatus } from "@/types/anime";
 import { useSearchAnimeQuery } from "../../__generated__/hooks";
 
-export const useAnimeSearch = (
-  search: string,
-  page: number = 1,
-  perPage: number = 20,
-  sort?: MediaSort,
-  status?: MediaStatus,
-  format?: MediaFormat,
-  seasonYear?: number
-) => {
+interface UseAnimeSearchOptions {
+  search: string;
+  page?: number;
+  perPage?: number;
+  sort?: MediaSort;
+  status?: MediaStatus;
+  format?: MediaFormat;
+  seasonYear?: number;
+  genre?: string;
+}
+
+export const useAnimeSearch = ({
+  search,
+  page = 1,
+  perPage = 20,
+  sort,
+  status,
+  format,
+  seasonYear,
+  genre,
+}: UseAnimeSearchOptions) => {
   // Allow query when there's a search term OR when there are active filters
-  const hasActiveFilters = Boolean(status || format || seasonYear);
+  const hasActiveFilters = Boolean(status || format || seasonYear || genre);
   const shouldSkip = !search && !hasActiveFilters;
 
   const result = useSearchAnimeQuery({
@@ -23,6 +35,7 @@ export const useAnimeSearch = (
       status,
       format,
       seasonYear,
+      genre_in: genre ? [genre] : undefined,
     },
     skip: shouldSkip,
     notifyOnNetworkStatusChange: true,
@@ -39,6 +52,7 @@ export const useAnimeSearch = (
           status,
           format,
           seasonYear,
+          genre_in: genre ? [genre] : undefined,
         },
       });
     }

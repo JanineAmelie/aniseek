@@ -4,34 +4,40 @@ import { useAnimeSearch } from "@/hooks/api/useAnimeSearch";
 import { SearchState } from "./useSearchState";
 
 export function useSearchAPI(state: SearchState) {
-  // Debounced values - grouped for better organization
+  // Debounced values with stable references
   const debouncedQuery = useDebounce(state.searchQuery, 500);
-  const debouncedFilters = {
-    sortBy: useDebounce(state.sortBy, 300),
-    status: useDebounce(state.statusFilter, 300),
-    format: useDebounce(state.formatFilter, 300),
-    year: useDebounce(state.yearFilter, 300),
-  };
+  const debouncedSortBy = useDebounce(state.sortBy, 300);
+  const debouncedStatus = useDebounce(state.statusFilter, 300);
+  const debouncedFormat = useDebounce(state.formatFilter, 300);
+  const debouncedYear = useDebounce(state.yearFilter, 300);
+  const debouncedGenre = useDebounce(state.genreFilter, 300);
 
   // Search API call
-  const { data, loading, error, refetch } = useAnimeSearch(
-    debouncedQuery,
-    1, // currentPage
-    20, // perPage
-    debouncedFilters.sortBy,
-    debouncedFilters.status || undefined,
-    debouncedFilters.format || undefined,
-    debouncedFilters.year || undefined
-  );
+  const { data, loading, error, refetch } = useAnimeSearch({
+    search: debouncedQuery,
+    page: 1,
+    perPage: 20,
+    sort: debouncedSortBy,
+    status: debouncedStatus || undefined,
+    format: debouncedFormat || undefined,
+    seasonYear: debouncedYear || undefined,
+    genre: debouncedGenre || undefined,
+  });
 
   // Check if should perform search
   const shouldSearch = useMemo(() => {
     const hasQuery = debouncedQuery.trim().length > 0;
     const hasFilters = Boolean(
-      debouncedFilters.status || debouncedFilters.format || debouncedFilters.year
+      debouncedStatus || debouncedFormat || debouncedYear || debouncedGenre
     );
     return hasQuery || hasFilters;
-  }, [debouncedQuery, debouncedFilters.status, debouncedFilters.format, debouncedFilters.year]);
+  }, [
+    debouncedQuery,
+    debouncedStatus,
+    debouncedFormat,
+    debouncedYear,
+    debouncedGenre,
+  ]);
 
   // Auto-search when debounced values change
   useEffect(() => {

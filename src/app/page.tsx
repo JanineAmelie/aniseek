@@ -33,6 +33,17 @@ export default function Home() {
     }
   };
 
+  const handleGenreClick = (genreWithEmoji: string) => {
+    // Find the matching genre from our hardcoded list to get the proper search term
+    const genre = hardCodedGenres.find(
+      g => `${g.emoji} ${g.text}` === genreWithEmoji
+    );
+    if (genre) {
+      // Use the searchQuery property which should match AniList's genre names
+      router.push(`/search?genre=${encodeURIComponent(genre.text)}`);
+    }
+  };
+
   const handleCardClick = (anime: NonNullable<typeof animeList>[number]) => {
     navigateToAnime(anime.id);
   };
@@ -61,6 +72,7 @@ export default function Home() {
             {text.common.findAnimeByGenre}
           </SectionTitle>
           <Genres
+            handleGenreClick={handleGenreClick}
             genres={hardCodedGenres.map(
               genre => `${genre.emoji} ${genre.text}`
             )}

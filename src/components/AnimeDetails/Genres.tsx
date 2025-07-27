@@ -5,6 +5,7 @@ import { text } from "@/constants/text";
 
 type GenresProps = {
   genres?: (string | null)[] | null;
+  handleGenreClick?: (genre: string) => void;
 };
 
 // Function to get gradient colors for each genre
@@ -37,7 +38,7 @@ const getGenreGradient = (genre: string): string => {
   );
 };
 
-export function Genres({ genres }: Readonly<GenresProps>) {
+export function Genres({ genres, handleGenreClick }: Readonly<GenresProps>) {
   if (!genres || genres.length === 0) {
     return null;
   }
@@ -55,6 +56,7 @@ export function Genres({ genres }: Readonly<GenresProps>) {
             key={genre || "unknown"}
             label={genre || text.animeDetails.unknown}
             gradient={getGenreGradient(genre || "")}
+            onClick={() => handleGenreClick?.(genre || "")}
           />
         ))}
       </Stack>

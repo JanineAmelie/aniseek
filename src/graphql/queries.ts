@@ -164,6 +164,7 @@ export const SEARCH_ANIME = gql`
     $status: MediaStatus
     $format: MediaFormat
     $seasonYear: Int
+    $genre_in: [String]
   ) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
@@ -180,6 +181,7 @@ export const SEARCH_ANIME = gql`
         status: $status
         format: $format
         seasonYear: $seasonYear
+        genre_in: $genre_in
       ) {
         id
         title {
