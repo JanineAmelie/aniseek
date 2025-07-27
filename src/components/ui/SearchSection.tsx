@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import styled from "styled-components";
 import { text } from "@/constants/text";
+import { sanitizeUserInput } from "@/utils";
 
 type SearchSectionProps = {
   searchQuery: string;
@@ -28,6 +29,14 @@ export function SearchSection({
     }
   };
 
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    // Sanitize input when user finishes typing
+    const sanitized = sanitizeUserInput(e.target.value);
+    if (sanitized !== e.target.value) {
+      onSearchQueryChange(sanitized);
+    }
+  };
+
   return (
     <SearchContainer elevation={0}>
       <SectionTitle variant="h5">{text.search.cta}</SectionTitle>
@@ -38,6 +47,7 @@ export function SearchSection({
         value={searchQuery}
         onChange={e => onSearchQueryChange(e.target.value)}
         onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
         slotProps={{
           input: {
             startAdornment: (

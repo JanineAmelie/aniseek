@@ -5,4 +5,9 @@ export { formatEpisodes } from "./formatEpisodes";
 export { getAnimeStatus } from "./getAnimeStatus";
 export { formatYear } from "./formatYear";
 export { formatSeason } from "./formatSeason";
-export { stripHtmlAndTruncate, stripHtmlToText } from "./sanitizeHtml";
+export {
+  stripHtmlAndTruncate,
+  stripHtmlToText,
+  sanitizeUserInput,
+  validateUserInput,
+} from "./sanitizeHtml";

@@ -14,6 +14,7 @@ import { hardCodedGenres } from "@/constants/genres";
 import { text } from "@/constants/text";
 import { useTrendingAnime } from "@/hooks/api/useTrendingAnime";
 import { useAppNavigation } from "@/hooks/useAppNavigation";
+import { sanitizeUserInput } from "@/utils";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,12 +29,19 @@ export default function Home() {
   );
 
   const handleSearch = () => {
-    if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    const sanitizedQuery = sanitizeUserInput(searchQuery);
+    if (sanitizedQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(sanitizedQuery.trim())}`);
     } else {
       // Navigate to search page to show trending anime when no query
       router.push("/search");
     }
+  };
+
+  const handleSearchQueryChange = (query: string) => {
+    // Allow free typing, only basic validation
+    const validatedQuery = query.length > 500 ? query.substring(0, 500) : query;
+    setSearchQuery(validatedQuery);
   };
 
   const handleGenreClick = (genreWithEmoji: string) => {
@@ -61,7 +69,7 @@ export default function Home() {
       <ContentContainer maxWidth="lg">
         <SearchSection
           searchQuery={searchQuery}
-          onSearchQueryChange={setSearchQuery}
+          onSearchQueryChange={handleSearchQueryChange}
           onSearch={handleSearch}
         />
 
