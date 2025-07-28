@@ -28,12 +28,13 @@ export default function Home() {
     (anime): anime is NonNullable<typeof anime> => anime !== null
   );
 
-  const handleSearch = () => {
-    const sanitizedQuery = sanitizeUserInput(searchQuery);
+  const handleSearch = (query?: string) => {
+    // Use the provided query or fall back to the current searchQuery state
+    const queryToUse = query ?? searchQuery;
+    const sanitizedQuery = sanitizeUserInput(queryToUse);
     if (sanitizedQuery.trim()) {
       router.push(`/search?q=${encodeURIComponent(sanitizedQuery.trim())}`);
     } else {
-      // Navigate to search page to show trending anime when no query
       router.push("/search");
     }
   };

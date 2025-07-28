@@ -26,7 +26,11 @@ function SearchPageContent() {
     navigateToAnime(anime.id);
   };
 
-  const handleSearch = () => {
+  const handleSearch = (query?: string) => {
+    // If a specific query is provided, update the search state first
+    if (query !== undefined) {
+      actions.setSearchQuery(query);
+    }
     refetch();
   };
 

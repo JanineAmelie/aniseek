@@ -1,43 +1,26 @@
-import { useEffect, useMemo } from "react";
-import { useDebounce } from "@/hooks";
+import { useMemo } from "react";
 import { useAnimeSearch } from "@/hooks/api/useAnimeSearch";
 import { SearchState } from "./useSearchState";
 
-export function useSearchAPI(state: SearchState) {
-  // Debounced values with stable references
-  const debouncedQuery = useDebounce(state.searchQuery, 500);
-  const debouncedSortBy = useDebounce(state.sortBy, 300);
-  const debouncedStatus = useDebounce(state.statusFilter, 300);
-  const debouncedFormat = useDebounce(state.formatFilter, 300);
-  const debouncedYear = useDebounce(state.yearFilter, 300);
-  const debouncedGenre = useDebounce(state.genreFilter, 300);
-
-  // Search API call
+export function useSearchAPI({
+  searchQuery,
+  sortBy,
+  statusFilter,
+  formatFilter,
+  yearFilter,
+  genreFilter,
+}: SearchState) {
   const { data, loading, error, refetch } = useAnimeSearch({
-    search: debouncedQuery,
+    search: searchQuery,
     page: 1,
     perPage: 20,
-    sort: debouncedSortBy,
-    status: debouncedStatus || undefined,
-    format: debouncedFormat || undefined,
-    seasonYear: debouncedYear || undefined,
-    genre: debouncedGenre || undefined,
+    sort: sortBy,
+    status: statusFilter || undefined,
+    format: formatFilter || undefined,
+    seasonYear: yearFilter || undefined,
+    genre: genreFilter || undefined,
   });
 
-  // Auto-search when debounced values change
-  useEffect(() => {
-    refetch();
-  }, [
-    refetch,
-    debouncedQuery,
-    debouncedSortBy,
-    debouncedStatus,
-    debouncedFormat,
-    debouncedYear,
-    debouncedGenre,
-  ]);
-
-  // Processed results
   const searchResults = useMemo(
     () =>
       (data?.Page?.media || []).filter(
