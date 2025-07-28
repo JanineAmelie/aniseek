@@ -9,6 +9,7 @@ const config: CodegenConfig = {
       plugins: [],
       presetConfig: {
         gqlTagName: "gql",
+        fragmentMasking: false,
       },
     },
     "./src/__generated__/hooks.ts": {
@@ -21,8 +22,16 @@ const config: CodegenConfig = {
         withHooks: true,
         withHOC: false,
         withComponent: false,
+        withResultType: true,
+        withMutationFn: true,
+        defaultScalarType: "unknown",
+        inlineFragmentTypes: "combine",
+        errorPolicy: "all",
       },
     },
+  },
+  hooks: {
+    afterAllFileWrite: ["prettier --write"],
   },
   ignoreNoDocuments: true,
 };
