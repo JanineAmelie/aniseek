@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import type { ChangeEvent, FocusEvent, KeyboardEvent } from "react";
 import { Search as SearchIcon } from "@mui/icons-material";
 import {
   Button,
@@ -19,55 +20,26 @@ type SearchSectionProps = {
   onSearchQueryChange: (query: string) => void;
   onSearch: (query?: string) => void;
 };
+
 export function SearchSection({
   searchQuery,
   onSearchQueryChange,
   onSearch,
 }: Readonly<SearchSectionProps>) {
-  // Local input state for immediate UI feedback
-  const [localInputValue, setLocalInputValue] = useState(searchQuery);
+  const [inputValue, setInputValue] = useState(searchQuery);
+  const debouncedValue = useDebounce(inputValue, 500);
 
-  // Debounce the local input value
-  const debouncedLocalValue = useDebounce(localInputValue, 500);
-
-  // Update local state when external searchQuery changes (e.g., from URL)
+  // Sync input with external searchQuery changes (e.g., from URL)
   useEffect(() => {
-    setLocalInputValue(searchQuery);
+    setInputValue(searchQuery);
   }, [searchQuery]);
 
-  // Propagate debounced changes to parent
+  // Auto-update search query when user stops typing
   useEffect(() => {
-    if (debouncedLocalValue !== searchQuery) {
-      onSearchQueryChange(debouncedLocalValue);
+    if (debouncedValue !== searchQuery) {
+      onSearchQueryChange(debouncedValue);
     }
-  }, [debouncedLocalValue, searchQuery, onSearchQueryChange]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLocalInputValue(e.target.value);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      // Immediately update parent with current input value and trigger search
-      onSearchQueryChange(localInputValue);
-      onSearch(localInputValue);
-    }
-  };
-
-  const handleSearchClick = () => {
-    // Update parent with current input value and trigger search
-    onSearchQueryChange(localInputValue);
-    onSearch(localInputValue);
-  };
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    // Sanitize input when user finishes typing
-    const sanitized = sanitizeUserInput(e.target.value);
-    if (sanitized !== e.target.value) {
-      setLocalInputValue(sanitized);
-      onSearchQueryChange(sanitized);
-    }
-  };
+  }, [debouncedValue, searchQuery, onSearchQueryChange]);
 
   return (
     <SearchContainer elevation={0}>
@@ -76,7 +48,7 @@ export function SearchSection({
         fullWidth
         variant="outlined"
         placeholder={text.search.placeholder}
-        value={localInputValue}
+        value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
@@ -102,6 +74,33 @@ export function SearchSection({
       />
     </SearchContainer>
   );
+
+  function performSearch(query: string = inputValue) {
+    onSearchQueryChange(query);
+    onSearch(query);
+  }
+
+  function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value);
+  }
+
+  function handleKeyDown(e: KeyboardEvent) {
+    if (e.key === "Enter") {
+      performSearch();
+    }
+  }
+
+  function handleSearchClick() {
+    performSearch();
+  }
+
+  function handleBlur(e: FocusEvent<HTMLInputElement>) {
+    const sanitized = sanitizeUserInput(e.target.value);
+    if (sanitized !== e.target.value) {
+      setInputValue(sanitized);
+      performSearch(sanitized);
+    }
+  }
 }
 
 const SearchContainer = styled(Paper)`
