@@ -1,13 +1,14 @@
 import React from "react";
 import { Chip, Stack } from "@mui/material";
+import { AnimeDetailsFragmentFragment } from "@/__generated__/graphql";
 import { text } from "@/constants/text";
 import { MediaStatus } from "@/types/anime";
 import { formatEpisodes, formatScore, getAnimeStatus } from "@/utils";
 
 type StatusChipsProps = {
-  status?: MediaStatus | null;
-  episodes?: number | null;
-  averageScore?: number | null;
+  status: AnimeDetailsFragmentFragment["status"];
+  episodes: AnimeDetailsFragmentFragment["episodes"];
+  averageScore: AnimeDetailsFragmentFragment["averageScore"];
 };
 
 const getFormattedStatus = (status?: MediaStatus | null): string => {

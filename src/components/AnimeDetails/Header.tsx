@@ -1,16 +1,13 @@
 import React from "react";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
+import { AnimeDetailsFragmentFragment } from "@/__generated__/graphql";
 import { text } from "@/constants/text";
 import { MediaTitle } from "@/types/anime";
 import { getAnimeTitle } from "@/utils";
 
 type HeaderProps = {
-  title?: {
-    english?: string | null;
-    romaji?: string | null;
-    native?: string | null;
-  } | null;
+  title: AnimeDetailsFragmentFragment["title"];
   onBack: () => void;
 };
 

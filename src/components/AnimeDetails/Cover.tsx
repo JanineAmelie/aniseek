@@ -1,12 +1,10 @@
 import React from "react";
 import { Card, CardMedia } from "@mui/material";
 import styled from "styled-components";
+import { AnimeDetailsFragmentFragment } from "@/__generated__/graphql";
 
 type CoverProps = {
-  coverImage?: {
-    large?: string | null;
-    medium?: string | null;
-  } | null;
+  coverImage: AnimeDetailsFragmentFragment["coverImage"];
   title: string;
 };
 

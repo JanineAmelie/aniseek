@@ -1,14 +1,12 @@
 import React from "react";
 import { CardMedia } from "@mui/material";
 import styled from "styled-components";
+import { AnimeCardFragmentFragment } from "@/__generated__/graphql";
 
 const DEFAULT_HEIGHT = 300;
 
 type CoverProps = {
-  coverImage?: {
-    large?: string | null;
-    medium?: string | null;
-  } | null;
+  coverImage: AnimeCardFragmentFragment["coverImage"];
   title: string;
 };
 

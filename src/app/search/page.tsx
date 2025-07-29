@@ -3,6 +3,7 @@
 import React, { Suspense } from "react";
 import { Container } from "@mui/material";
 import styled from "styled-components";
+import { AnimeCardFragmentFragment } from "@/__generated__/graphql";
 import { SearchFilters, SearchResults } from "@/components/Search";
 import { ErrorSection } from "@/components/ui/ErrorSection";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -10,7 +11,6 @@ import { SearchSection } from "@/components/ui/SearchSection";
 import { text } from "@/constants/text";
 import { useSearchAPI, useSearchState, useSearchURL } from "@/hooks/search";
 import { useAppNavigation } from "@/hooks/useAppNavigation";
-import { AnimeCardFragmentFragment } from "@/__generated__/graphql";
 
 function SearchPageContent() {
   const { state, actions, hasActiveFilters } = useSearchState();
