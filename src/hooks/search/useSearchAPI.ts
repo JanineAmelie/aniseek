@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useAnimeSearch } from "@/hooks/api/useAnimeSearch";
 import { SearchState } from "./useSearchState";
 
@@ -21,13 +20,9 @@ export function useSearchAPI({
     genre: genreFilter || undefined,
   });
 
-  const searchResults = useMemo(
-    () =>
-      (data?.Page?.media || []).filter(
-        (anime): anime is NonNullable<typeof anime> => anime !== null
-      ),
-    [data]
-  );
+  // Get search results from API response, filtering out null values
+  const rawResults = data?.Page?.media || [];
+  const searchResults = rawResults.filter(anime => anime !== null);
 
   return {
     searchResults,

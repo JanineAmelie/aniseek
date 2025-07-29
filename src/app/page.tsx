@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Bolt as BoltIcon } from "@mui/icons-material";
 import { Box, Container, Typography } from "@mui/material";
 import styled from "styled-components";
+import { AnimeCardFragmentFragment } from "@/__generated__/graphql";
 import { Genres } from "@/components/AnimeDetails/Genres";
 import { ErrorSection } from "@/components/ui/ErrorSection";
 import { HeroSection } from "@/components/ui/HeroSection";
@@ -98,7 +99,7 @@ export default function Home() {
     }
   }
 
-  function handleCardClick(anime: NonNullable<(typeof animeList)[number]>) {
+  function handleCardClick(anime: AnimeCardFragmentFragment) {
     navigateToAnime(anime.id);
   }
 

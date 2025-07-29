@@ -2,18 +2,14 @@ import React from "react";
 import { SearchOff as NoResultsIcon } from "@mui/icons-material";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import styled from "styled-components";
+import { AnimeCardFragmentFragment } from "@/__generated__/graphql";
 import { AnimeCard } from "@/components/AnimeCard";
 import { text } from "@/constants/text";
-import { SearchAnimeQuery } from "@/types/anime";
-
-type AnimeFromSearchQuery = NonNullable<
-  NonNullable<SearchAnimeQuery["Page"]>["media"]
->[number];
 
 type SearchResultsProps = {
   isLoading: boolean;
-  results: NonNullable<NonNullable<SearchAnimeQuery["Page"]>["media"]>;
-  onAnimeClick: (anime: NonNullable<AnimeFromSearchQuery>) => void;
+  results: AnimeCardFragmentFragment[];
+  onAnimeClick: (anime: AnimeCardFragmentFragment) => void;
   hasQuery: boolean;
   hasActiveFilters: boolean;
   totalResults: number;

@@ -1,20 +1,11 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
+import { AnimeDetailsFragmentFragment } from "@/__generated__/graphql";
 import { text } from "@/constants/text";
 
-type AnimeData = {
-  format?: string | null;
-  source?: string | null;
-  season?: string | null;
-  seasonYear?: number | null;
-  duration?: number | null;
-  popularity?: number | null;
-  favourites?: number | null;
-};
-
 type InfoGridProps = {
-  anime: AnimeData;
+  anime: AnimeDetailsFragmentFragment;
 };
 
 export function InfoGrid({ anime }: Readonly<InfoGridProps>) {

@@ -10,6 +10,7 @@ import { SearchSection } from "@/components/ui/SearchSection";
 import { text } from "@/constants/text";
 import { useSearchAPI, useSearchState, useSearchURL } from "@/hooks/search";
 import { useAppNavigation } from "@/hooks/useAppNavigation";
+import { AnimeCardFragmentFragment } from "@/__generated__/graphql";
 
 function SearchPageContent() {
   const { state, actions, hasActiveFilters } = useSearchState();
@@ -20,9 +21,7 @@ function SearchPageContent() {
   const { navigateToHome } = useSearchURL(state);
   const { navigateToAnime } = useAppNavigation();
 
-  const handleAnimeClick = (
-    anime: NonNullable<typeof searchResults>[number]
-  ) => {
+  const handleAnimeClick = (anime: AnimeCardFragmentFragment) => {
     navigateToAnime(anime.id);
   };
 

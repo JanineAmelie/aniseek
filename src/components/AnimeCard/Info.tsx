@@ -1,16 +1,12 @@
 import React from "react";
 import { Box, Chip, Stack, Typography } from "@mui/material";
 import styled from "styled-components";
+import { AnimeCardFragmentFragment } from "@/__generated__/graphql";
 import { text } from "@/constants/text";
-import { GetTrendingAnimeQuery } from "@/types/anime";
 import { formatEpisodes, getAnimeStatus } from "@/utils";
 
-type AnimeFromQuery = NonNullable<
-  NonNullable<GetTrendingAnimeQuery["Page"]>["media"]
->[number];
-
 type InfoProps = {
-  anime: NonNullable<AnimeFromQuery>;
+  anime: AnimeCardFragmentFragment;
 };
 
 export function Info({ anime }: Readonly<InfoProps>) {

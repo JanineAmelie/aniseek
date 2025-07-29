@@ -29,13 +29,6 @@ export type {
 // Re-export enums
 export { MediaStatus, MediaFormat, MediaSeason, MediaSource, MediaSort };
 
-// Type alias for the media array from queries
-export type AnimeList = NonNullable<
-  NonNullable<GetTrendingAnimeQuery["Page"]>["media"]
->;
-
-// Individual anime type from the query results
-export type AnimeItem = NonNullable<AnimeList>[number];
-
-// Search result type
+export type AnimeList = Media[];
+export type AnimeItem = Media;
 export type AnimeSearchResult = SearchAnimeQuery;

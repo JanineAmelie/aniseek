@@ -1,17 +1,13 @@
 import React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
 import styled from "styled-components";
-import { GetTrendingAnimeQuery } from "@/types/anime";
+import { AnimeCardFragmentFragment } from "@/__generated__/graphql";
 import { getAnimeTitle } from "@/utils";
 import { Cover, Description, Genres, Info, Score } from "./index";
 
-type AnimeFromQuery = NonNullable<
-  NonNullable<GetTrendingAnimeQuery["Page"]>["media"]
->[number];
-
 type AnimeCardProps = {
-  anime: NonNullable<AnimeFromQuery>;
-  onCardClick?: (anime: NonNullable<AnimeFromQuery>) => void;
+  anime: AnimeCardFragmentFragment;
+  onCardClick?: (anime: AnimeCardFragmentFragment) => void;
 };
 
 export function AnimeCard({ anime, onCardClick }: Readonly<AnimeCardProps>) {

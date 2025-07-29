@@ -4,17 +4,14 @@ import React from "react";
 import { TrendingUp as TrendingIcon } from "@mui/icons-material";
 import { Box, Skeleton, Typography } from "@mui/material";
 import styled from "styled-components";
+import { AnimeCardFragmentFragment } from "@/__generated__/graphql";
 import { AnimeCard } from "@/components/AnimeCard/AnimeCard";
 import { text } from "@/constants/text";
 
-type Anime = {
-  id: number;
-};
-
 type TrendingSectionProps = {
   isLoading: boolean;
-  animeList: Anime[];
-  onCardClick: (anime: Anime) => void;
+  animeList: AnimeCardFragmentFragment[];
+  onCardClick: (anime: AnimeCardFragmentFragment) => void;
 };
 
 export function TrendingSection({
