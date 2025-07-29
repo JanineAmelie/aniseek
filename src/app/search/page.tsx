@@ -26,11 +26,10 @@ function SearchPageContent() {
   };
 
   const handleSearch = (query?: string) => {
-    // If a specific query is provided, update the search state first
+    // Update the search query state - this will automatically trigger a refetch
     if (query !== undefined) {
       actions.setSearchQuery(query);
     }
-    refetch();
   };
 
   return (

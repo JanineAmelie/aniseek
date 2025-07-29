@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { ChangeEvent, FocusEvent, KeyboardEvent } from "react";
 import { Search as SearchIcon } from "@mui/icons-material";
 import {
@@ -28,15 +28,17 @@ export function SearchSection({
 }: Readonly<SearchSectionProps>) {
   const [inputValue, setInputValue] = useState(searchQuery);
   const debouncedValue = useDebounce(inputValue, 500);
+  const lastManualSearchTime = useRef(0);
 
   // Sync input with external searchQuery changes (e.g., from URL)
   useEffect(() => {
     setInputValue(searchQuery);
   }, [searchQuery]);
 
-  // Auto-update search query when user stops typing
+  // Auto-update search query when user stops typing (but not within 1 second of manual search)
   useEffect(() => {
-    if (debouncedValue !== searchQuery) {
+    const timeSinceManualSearch = Date.now() - lastManualSearchTime.current;
+    if (debouncedValue !== searchQuery && timeSinceManualSearch > 1000) {
       onSearchQueryChange(debouncedValue);
     }
   }, [debouncedValue, searchQuery, onSearchQueryChange]);
@@ -75,18 +77,28 @@ export function SearchSection({
     </SearchContainer>
   );
 
-  function performSearch(query: string = inputValue) {
-    onSearchQueryChange(query);
-    onSearch(query);
+  function performSearch(query?: string) {
+    // Use the provided query or fall back to current input value
+    const searchValue = query ?? inputValue;
+
+    // Record the time of manual search to prevent debounced interference
+    lastManualSearchTime.current = Date.now();
+
+    // Immediately update the input value
+    setInputValue(searchValue);
+    onSearchQueryChange(searchValue);
+    onSearch(searchValue);
   }
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
   }
 
-  function handleKeyDown(e: KeyboardEvent) {
+  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
-      performSearch();
+      // Use the current input value directly from the event target
+      const currentValue = e.currentTarget.value;
+      performSearch(currentValue);
     }
   }
 
