@@ -23,45 +23,9 @@ export default function Home() {
 
   const { data, loading, error, refetch } = useTrendingAnime(1, 4);
 
-  // Extract anime list from the GraphQL response and filter out null values
-  const animeList = (data?.Page?.media || []).filter(
-    (anime): anime is NonNullable<typeof anime> => anime !== null
-  );
-
-  const handleSearch = (query?: string) => {
-    // Use the provided query or fall back to the current searchQuery state
-    const queryToUse = query ?? searchQuery;
-    const sanitizedQuery = sanitizeUserInput(queryToUse);
-    if (sanitizedQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(sanitizedQuery.trim())}`);
-    } else {
-      router.push("/search");
-    }
-  };
-
-  const handleSearchQueryChange = (query: string) => {
-    // Allow free typing, only basic validation
-    const validatedQuery = query.length > 500 ? query.substring(0, 500) : query;
-    setSearchQuery(validatedQuery);
-  };
-
-  const handleGenreClick = (genreWithEmoji: string) => {
-    // Find the matching genre from our hardcoded list to get the proper search term
-    const genre = hardCodedGenres.find(
-      g => `${g.emoji} ${g.text}` === genreWithEmoji
-    );
-    if (genre) {
-      router.push(`/search?genre=${encodeURIComponent(genre.text)}`);
-    }
-  };
-
-  const handleCardClick = (anime: NonNullable<typeof animeList>[number]) => {
-    navigateToAnime(anime.id);
-  };
-
-  const handleRetry = () => {
-    refetch();
-  };
+  // Get anime list from API response, defaulting to empty array
+  const rawAnimeList = data?.Page?.media || [];
+  const animeList = rawAnimeList.filter(anime => anime !== null);
 
   return (
     <PageContainer>
@@ -106,6 +70,41 @@ export default function Home() {
       </ContentContainer>
     </PageContainer>
   );
+
+  function handleSearch(query?: string) {
+    // Use the provided query or fall back to the current searchQuery state
+    const queryToUse = query ?? searchQuery;
+    const sanitizedQuery = sanitizeUserInput(queryToUse);
+    if (sanitizedQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(sanitizedQuery.trim())}`);
+    } else {
+      router.push("/search");
+    }
+  }
+
+  function handleSearchQueryChange(query: string) {
+    // Allow free typing, only basic validation
+    const validatedQuery = query.length > 500 ? query.substring(0, 500) : query;
+    setSearchQuery(validatedQuery);
+  }
+
+  function handleGenreClick(genreWithEmoji: string) {
+    // Find the matching genre from our hardcoded list to get the proper search term
+    const genre = hardCodedGenres.find(
+      g => `${g.emoji} ${g.text}` === genreWithEmoji
+    );
+    if (genre) {
+      router.push(`/search?genre=${encodeURIComponent(genre.text)}`);
+    }
+  }
+
+  function handleCardClick(anime: NonNullable<(typeof animeList)[number]>) {
+    navigateToAnime(anime.id);
+  }
+
+  function handleRetry() {
+    refetch();
+  }
 }
 
 const PageContainer = styled(Box)`

@@ -6,16 +6,15 @@ import { Box, Skeleton, Typography } from "@mui/material";
 import styled from "styled-components";
 import { AnimeCard } from "@/components/AnimeCard/AnimeCard";
 import { text } from "@/constants/text";
-import { GetTrendingAnimeQuery } from "@/types/anime";
 
-type AnimeFromQuery = NonNullable<
-  NonNullable<GetTrendingAnimeQuery["Page"]>["media"]
->[number];
+type Anime = {
+  id: number;
+};
 
 type TrendingSectionProps = {
   isLoading: boolean;
-  animeList: NonNullable<AnimeFromQuery>[];
-  onCardClick: (anime: NonNullable<AnimeFromQuery>) => void;
+  animeList: Anime[];
+  onCardClick: (anime: Anime) => void;
 };
 
 export function TrendingSection({
