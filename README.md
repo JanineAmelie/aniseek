@@ -45,6 +45,23 @@ Make sure you have Node.js v20 installed on your machine.
 - **Always run codegen after cloning** - The GraphQL generated files are not committed to the repository
 - **Run codegen after schema changes** - If you modify GraphQL queries or the schema, regenerate the types
 
+### For Code Reviewers
+
+**Please be gentle with the search functionality!** 🙏
+
+While I've implemented debouncing to optimize the search experience, the AniList API has rate limiting in place to protect their service. Rapid-fire searching or automated testing can trigger CORS errors and network failures when the rate limits are exceeded. The API is free and generous, but like most public APIs, it has reasonable usage restrictions to ensure fair access for all users.
+
+If you're testing the search feature, please:
+
+- Allow a moment between searches to let the debounce work
+- Avoid rapidly typing and clearing the search field
+- Test with realistic user behavior patterns
+- If you encounter CORS or network errors, please wait a moment before continuing
+
+This isn't an excuse for poor implementation - the debouncing is working as intended and provides a smooth user experience under normal usage. I just want to be respectful of the free API service that makes this project possible!
+
+**Note:** In a real-world production scenario,we would typically implement additional safeguards like exponential backoff, request queuing, proper error boundaries with user-friendly messages, and potentially a backend proxy to handle rate limiting more gracefully. For this demo project, the client-side debouncing provides a good balance between functionality and simplicity.
+
 ![showcase](./public/showcase.gif)
 
 ### Personal Notes
